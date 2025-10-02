@@ -116,7 +116,7 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
   return (
     <div className="absolute right-12 top-1/2 transform -translate-y-1/2 flex flex-col items-center select-none z-30">
       {/* Instruction text */}
-      <div className="mb-4 text-white/30 text-xs font-light tracking-widest text-center">
+      <div className="mb-4 text-white/80 text-xs font-custom3 tracking-widest text-center">
         <p>SLIDE TO LAUNCH</p>
       </div>
 

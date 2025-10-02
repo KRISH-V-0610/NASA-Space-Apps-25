@@ -70,7 +70,8 @@ const MusicToggleButton = ({
       className={`
         cursor-target absolute bottom-6 left-6 
         transition-all z-20 border flex items-center gap-4
-        ${isHovered ? "px-10 py-6" : "px-8 py-5"}
+       
+        ${isHovered ? "px-10 py-6" : "px-5 py-3"}
         ${isMuted 
           ? "bg-black/40 backdrop-blur-md border-white/10 hover:border-emerald-400/60 text-white/60 hover:text-emerald-300" 
           : "bg-emerald-500/10 backdrop-blur-md border-emerald-400/30 hover:border-emerald-400/60 text-emerald-400 hover:text-emerald-300"
@@ -86,12 +87,12 @@ const MusicToggleButton = ({
       <span className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-emerald-500/20 to-emerald-400/10`}></span>
 
       {/* Waveform visualization */}
-      <div className="flex h-6 items-center gap-1 relative z-10">
+      <div className="font-custom3 flex h-6 items-center gap-1 relative z-10">
         {heights.map((height, index) => (
           <div
             key={index}
             className={`
-              w-1 transition-all duration-300
+              w-[1px] transition-all duration-300
               ${isMuted 
                 ? "bg-white/40 group-hover:bg-emerald-400/80" 
                 : "bg-emerald-400 group-hover:bg-emerald-300"
@@ -106,7 +107,7 @@ const MusicToggleButton = ({
       </div>
 
       {/* Status text */}
-      <span className="text-xs uppercase tracking-widest font-medium relative z-10 transition-all duration-300">
+      <span className=" font-custom3 text-xs uppercase tracking-widest font-bold relative z-10 transition-all duration-300">
         {isMuted ? "Muted" : "Playing"}
       </span>
 

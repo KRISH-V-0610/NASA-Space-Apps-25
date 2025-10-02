@@ -22,6 +22,18 @@
   --font-custom2: "MyCustomFont2", sans-serif;
 }
 
+@font-face {
+  font-family: "MyCustomFont3";   /* 👈 name you'll use in Tailwind */
+  src: url("/fonts/ThinPrint-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@theme {
+  --font-custom3: "MyCustomFont3", sans-serif;
+}
+
 /* -------------------------------------------------------------------------- */
 
 @keyframes gradient {
