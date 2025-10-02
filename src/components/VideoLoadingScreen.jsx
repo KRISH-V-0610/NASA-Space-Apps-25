@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 // components/VideoLoadingScreen.jsx
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
+import { gsap } from "gsap";
 import TextType from "./ui/TextType";
 
 export default function VideoLoadingScreen({ 
@@ -10,17 +11,36 @@ export default function VideoLoadingScreen({
 }) {
   const { progress, loaded, total } = useProgress();
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
-  // Only use progress to detect completion
+  // Detect completion and trigger fade out
   useEffect(() => {
-    if (progress === 100 && loaded === total && total > 0) {
-      const timeout = setTimeout(() => onLoadComplete(), 500); // small fade-out delay
-      return () => clearTimeout(timeout);
+    if (progress === 100 && loaded === total && total > 0 && !isFadingOut) {
+      setIsFadingOut(true);
+
+      // Start fade out animation
+      const tl = gsap.timeline({
+        onComplete: () => {
+          onLoadComplete();
+        }
+      });
+
+      // Fade out the entire loading screen over 3 seconds
+      tl.to(containerRef.current, {
+        opacity: 0,
+        duration: 3,
+        ease: "power2.inOut"
+      });
     }
-  }, [progress, loaded, total, onLoadComplete]);
+  }, [progress, loaded, total, onLoadComplete, isFadingOut]);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black">
+    <div 
+      ref={containerRef}
+      className="fixed inset-0 z-[9999] bg-black"
+      style={{ opacity: 1 }}
+    >
       {/* Background video */}
       <video
         ref={videoRef}

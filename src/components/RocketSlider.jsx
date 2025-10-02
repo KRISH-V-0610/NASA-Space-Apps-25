@@ -1,14 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaRocket } from 'react-icons/fa6';
 import { gsap } from 'gsap';
+import { useSoundEffect } from '../hooks/useSoundEffect';
+import { IoMdRocket } from "react-icons/io";
+
 
 const RocketSlider = ({ onLaunch, onLaunchStart }) => {
+  const rocketSound = useSoundEffect("/sounds/rocket.wav", { volume: 0.15 });
+  // const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(0);
   const [isLaunching, setIsLaunching] = useState(false);
   const rocketRef = useRef(null);
   const trackRef = useRef(null);
-  
+
   const LAUNCH_THRESHOLD = 35;
   const TRACK_HEIGHT = 400;
 
@@ -25,9 +31,10 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
   }, [isDragging, position, isLaunching]);
 
   const handleLaunch = () => {
+    rocketSound.play();
     setIsLaunching(true);
     onLaunchStart?.();
-    
+
     const tl = gsap.timeline({
       onComplete: () => {
         onLaunch();
@@ -67,26 +74,26 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
       const startPos = position;
       const duration = 0.5;
       const startTime = Date.now();
-      
+
       const animate = () => {
         const elapsed = (Date.now() - startTime) / 1000;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         const easeOut = (t) => {
           const c4 = (2 * Math.PI) / 3;
           return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
         };
-        
+
         const newPos = startPos * (1 - easeOut(progress));
         setPosition(newPos);
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
           setPosition(0);
         }
       };
-      
+
       animate();
     }
     setIsDragging(false);
@@ -123,37 +130,63 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
       {/* Track container */}
       <div className="relative flex items-center">
         {/* Vertical Track */}
-        <div 
+        <div
           ref={trackRef}
           className="relative w-6 bg-white/10 backdrop-blur-sm rounded-full overflow-visible"
           style={{ height: `${TRACK_HEIGHT}px` }}
         >
-          {/* Fire/Glow effect - only visible when position > 0, fills from bottom to rocket position */}
+          {/* Animated Flame Effect - fills from bottom to rocket position */}
           {position > 0 && (
-            <div 
-              className="absolute bottom-0 left-0 right-0 rounded-full pointer-events-none overflow-hidden transition-all duration-75"
-              style={{ 
-                height: `${position}%`,
-                background: 'linear-gradient(to top, rgba(255, 87, 34, 0.9), rgba(255, 152, 0, 0.7), rgba(255, 193, 7, 0.5), rgba(255, 235, 59, 0.3))',
-                boxShadow: '0 0 20px rgba(255, 152, 0, 0.5), inset 0 0 20px rgba(255, 235, 59, 0.3)',
-              }}
+            <div
+              className="absolute bottom-0 left-0 right-0 pointer-events-none transition-all duration-75 overflow-visible"
+              style={{ height: `${position}%` }}
             >
-              {/* Animated glow overlay */}
-              <div 
-                className="absolute inset-0 animate-pulse"
+              {/* Core flame */}
+              <div className="absolute inset-0 rounded-full overflow-hidden">
+                {/* Inner bright core */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-full animate-flame-flicker"
+                  style={{
+                    background: 'linear-gradient(to top, #ff4500 0%, #ff6b35 20%, #ffa500 40%, #ffcc00 60%, #ffeb3b 80%, rgba(255, 235, 59, 0.3) 100%)',
+                    filter: 'blur(2px)',
+                  }}
+                />
+                
+                {/* Bright white hot center */}
+                <div
+                  className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3 animate-flame-core"
+                  style={{
+                    height: '30%',
+                    background: 'linear-gradient(to top, #ffffff, #ffeb3b, transparent)',
+                    filter: 'blur(1px)',
+                  }}
+                />
+
+                {/* Flickering particles */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-full animate-flame-particles"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 200, 0, 0.4) 30%, transparent 60%)',
+                  }}
+                />
+              </div>
+
+              {/* Outer glow and heat distortion */}
+              <div
+                className="absolute -inset-2 animate-flame-glow"
                 style={{
-                  background: 'linear-gradient(to top, rgba(255, 255, 255, 0.1), transparent)',
+                  background: 'radial-gradient(ellipse at center, rgba(255, 100, 0, 0.4) 0%, rgba(255, 150, 0, 0.2) 40%, transparent 70%)',
+                  filter: 'blur(8px)',
                 }}
               />
-            </div>
-          )}
 
-          {/* Progress fill - white gradient overlay */}
-          {position > 0 && (
-            <div 
-              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/40 to-white/20 rounded-full transition-all duration-75"
-              style={{ height: `${position}%` }}
-            />
+              {/* Sparks effect */}
+              <div className="absolute inset-0 overflow-visible">
+                <div className="absolute bottom-0 left-1/2 w-1 h-1 bg-yellow-300 rounded-full animate-spark-1" style={{ marginLeft: '-4px' }} />
+                <div className="absolute bottom-0 left-1/2 w-1 h-1 bg-orange-400 rounded-full animate-spark-2" style={{ marginLeft: '4px' }} />
+                <div className="absolute bottom-0 left-1/2 w-0.5 h-0.5 bg-yellow-200 rounded-full animate-spark-3" style={{ marginLeft: '-2px' }} />
+              </div>
+            </div>
           )}
         </div>
 
@@ -163,7 +196,7 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
           onMouseDown={handleStart}
           onTouchStart={handleStart}
           className="cursor-target absolute left-1/2 cursor-grab active:cursor-grabbing touch-none"
-          style={{ 
+          style={{
             bottom: `${position}%`,
             transform: `translateX(-50%) translateY(50%)`,
             transition: isDragging ? 'none' : 'bottom 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
@@ -173,11 +206,12 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
           <div className="relative group">
             {/* Subtle glow effect */}
             <div className="absolute inset-0 bg-white/20 rounded-full blur-lg scale-125 group-hover:bg-white/30 transition-all duration-300 pointer-events-none" />
-            
+
             {/* Rocket button - glassy white design */}
-            <div className="relative bg-white/90 backdrop-blur-xl border-2 border-white/40 rounded-full w-16 h-16 group-hover:bg-white group-hover:border-white/60 transition-all duration-300 shadow-2xl group-active:scale-95 flex items-center justify-center">
-              <FaRocket className="text-3xl text-gray-800" />
-              
+            <div className="relative text-white size-12 transition-all duration-300 shadow-2xl group-active:scale-95 flex items-center justify-center">
+              {/* <FaRocket className="text-3xl text-gray-800" /> */}
+              <IoMdRocket className='text-[96px]'/>
+
               {/* Subtle inner shadow for depth */}
               <div className="absolute inset-0 rounded-full shadow-inner pointer-events-none" />
             </div>
@@ -186,7 +220,7 @@ const RocketSlider = ({ onLaunch, onLaunchStart }) => {
       </div>
 
       {/* Bottom indicator */}
-      <div className="mt-4 text-white/40 text-xs font-light tracking-wider">
+      <div className="mt-8 text-white/40 text-xs font-light tracking-wider">
         {Math.round(position)}%
       </div>
     </div>

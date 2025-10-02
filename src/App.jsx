@@ -74,7 +74,7 @@ const App = () => {
       {/* Global Background Music */}
       <audio
         ref={audioRef}
-        src='/BgMusic/bgmusic.mp3'
+        src='/music/bgmusic.mp3'
         loop
         muted={true}
         preload="auto"

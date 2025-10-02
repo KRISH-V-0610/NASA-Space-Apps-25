@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useSoundEffect } from "../hooks/useSoundEffect";
 
-const MusicToggleButton = ({ 
-  isMuted, 
-  audioLoaded, 
-  onToggle, 
-  className = "" 
+
+const MusicToggleButton = ({
+  isMuted,
+  audioLoaded,
+  onToggle,
+  className = ""
 }) => {
   const bars = 5;
-  
+  const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+
   const getRandomHeights = () => {
     return Array.from({ length: bars }, () => Math.random() * 0.8 + 0.2);
   };
@@ -29,7 +32,8 @@ const MusicToggleButton = ({
     }
   }, [audioLoaded, isMuted, bars]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    await clickSound.play()
     if (audioLoaded) {
       onToggle();
     }
@@ -72,8 +76,8 @@ const MusicToggleButton = ({
         transition-all z-20 border flex items-center gap-4
        
         ${isHovered ? "px-10 py-6" : "px-5 py-3"}
-        ${isMuted 
-          ? "bg-black/40 backdrop-blur-md border-white/10 hover:border-emerald-400/60 text-white/60 hover:text-emerald-300" 
+        ${isMuted
+          ? "bg-black/40 backdrop-blur-md border-white/10 hover:border-emerald-400/60 text-white/60 hover:text-emerald-300"
           : "bg-emerald-500/10 backdrop-blur-md border-emerald-400/30 hover:border-emerald-400/60 text-emerald-400 hover:text-emerald-300"
         }
         group overflow-hidden
@@ -93,8 +97,8 @@ const MusicToggleButton = ({
             key={index}
             className={`
               w-[1px] transition-all duration-300
-              ${isMuted 
-                ? "bg-white/40 group-hover:bg-emerald-400/80" 
+              ${isMuted
+                ? "bg-white/40 group-hover:bg-emerald-400/80"
                 : "bg-emerald-400 group-hover:bg-emerald-300"
               }
             `}

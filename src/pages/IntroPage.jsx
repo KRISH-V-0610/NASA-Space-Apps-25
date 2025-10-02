@@ -6,7 +6,12 @@ import TargetCursor from "../components/ui/TargetCursor";
 import MusicToggleButton from "../components/MusicToggleButton";
 import RocketSlider from "../components/RocketSlider";
 
+
+
+
 export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMuted, audioLoaded }) {
+
+
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef(null);
   const contentRef = useRef(null);
