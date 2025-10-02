@@ -1,0 +1,91 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import VideoBackground from './pages/VideoBackgroundPage';
+import Terra25Page from './pages/Terra25LandingPage';
+import MusicToggleButton from './components/MusicToggleButton';
+
+const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
+  const location = useLocation();
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={
+          <VideoBackground
+            videoSrc='/Backgrounds/bgvideo.mp4'
+            audioRef={audioRef}
+            isMuted={isMuted}
+            setIsMuted={setIsMuted}
+            audioLoaded={audioLoaded}
+          />
+        
+        } />
+        <Route path="/terra25" element={<Terra25Page />} />
+      </Routes>
+      
+      {/* Global Music Toggle Button - only show on terra25 page */}
+      {location.pathname === '/terra25' && (
+        <MusicToggleButton
+          isMuted={isMuted}
+          audioLoaded={audioLoaded}
+          onToggle={() => {
+            if (isMuted && audioRef.current) {
+              audioRef.current.muted = false;
+              audioRef.current.play();
+              setIsMuted(false);
+            } else if (audioRef.current) {
+              audioRef.current.muted = true;
+              setIsMuted(true);
+            }
+          }}
+        />
+      )}
+    </>
+  );
+};
+
+const App = () => {
+  const [isMuted, setIsMuted] = useState(true);
+  const [audioLoaded, setAudioLoaded] = useState(false);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    
+    const handleAudioCanPlay = () => {
+      setAudioLoaded(true);
+    };
+
+    if (audio) {
+      audio.addEventListener('canplay', handleAudioCanPlay);
+    }
+
+    return () => {
+      if (audio) {
+        audio.removeEventListener('canplay', handleAudioCanPlay);
+      }
+    };
+  }, []);
+
+  return (
+    <Router>
+      {/* Global Background Music */}
+      <audio
+        ref={audioRef}
+        src='/BgMusic/bgmusic.mp3'
+        loop
+        muted={true}
+        preload="auto"
+      />
+      
+      <AppContent 
+        audioRef={audioRef}
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
+        audioLoaded={audioLoaded}
+      />
+    </Router>
+  );
+};
+
+export default App;
