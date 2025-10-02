@@ -51,12 +51,9 @@ export default function Terra25Page() {
     }
   };
 
-  if (isLoading) {
-    return <VideoLoadingScreen onLoadComplete={() => setIsLoading(false)} />;
-  }
-
   return (
     <div className="font-custom3 w-screen h-screen bg-black relative overflow-hidden">
+      {/* 3D Scene */}
       <div ref={canvasContainerRef} className="w-full h-full" style={{ transformOrigin: 'center center' }}>
         <Canvas camera={{ position: [0, 3, 12], fov: 50 }} shadows>
           <ambientLight intensity={0.5} />
@@ -89,6 +86,9 @@ export default function Terra25Page() {
           />
         </Canvas>
       </div>
+
+      {/* Overlay Loading Screen */}
+      {isLoading && <VideoLoadingScreen onLoadComplete={() => setIsLoading(false)} />}
 
       <OrbitTiltControl orbitTilt={orbitTilt} setOrbitTilt={setOrbitTilt} />
       
