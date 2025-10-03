@@ -2,7 +2,6 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import AstronautModel from "./3DModels/AstronautModel";
-// import { useSoundEffect } from "../hooks/useSoundEffect";
 
 
 export default function AstronautButton({ 
@@ -10,8 +9,6 @@ export default function AstronautButton({
   setCurrentAnimation, 
   onClick 
 }) {
-    // const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
-  
 
   return (
     <button

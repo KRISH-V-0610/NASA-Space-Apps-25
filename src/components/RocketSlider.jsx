@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaRocket } from 'react-icons/fa6';
 import { gsap } from 'gsap';
 import { useSoundEffect } from '../hooks/useSoundEffect';
 import { IoMdRocket } from "react-icons/io";
@@ -7,7 +6,6 @@ import { IoMdRocket } from "react-icons/io";
 
 const RocketSlider = ({ onLaunch, onLaunchStart }) => {
   const rocketSound = useSoundEffect("/sounds/rocket.wav", { volume: 0.15 });
-  // const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
 
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(0);

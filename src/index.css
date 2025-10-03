@@ -222,25 +222,6 @@
   }
 }
 
-/* Apply Anime-style Animations */
-.animate-flame-outer {
-  animation: flame-outer 0.2s ease-in-out infinite;
-}
-
-.animate-flame-mid {
-  animation: flame-mid 0.18s ease-in-out infinite;
-  animation-delay: 0.05s;
-}
-
-.animate-flame-core-anime {
-  animation: flame-core-anime 0.12s ease-in-out infinite;
-  animation-delay: 0.03s;
-}
-
-.animate-flame-glow-anime {
-  animation: flame-glow-anime 0.25s ease-in-out infinite;
-}
-
 .animate-spark-cartoon-1 {
   animation: spark-cartoon-1 0.6s ease-out infinite;
 }

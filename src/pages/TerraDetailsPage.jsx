@@ -8,23 +8,17 @@ import { useSoundEffect } from "../hooks/useSoundEffect";
 import * as THREE from "three";
 
 
-function DetailedTerraSatellite({ rotationSpeed, terraRef }) {
+function DetailedTerraSatellite({ terraRef }) {
   const { scene } = useGLTF("/3Dmodels/terra2.glb");
 
-  useFrame(() => {
-    if (terraRef.current) {
-      terraRef.current.rotation.y += rotationSpeed;
-    }
-  });
 
   return <primitive ref={terraRef} object={scene} scale={0.0004} />;
 }
 
 function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavigate }) {
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const labelRef = useRef();
-  const lineRef = useRef();
   const groupRef = useRef();
   const [opacity, setOpacity] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
@@ -45,21 +39,21 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
     if (groupRef.current && parentRef?.current) {
       const worldPos = new THREE.Vector3();
       groupRef.current.getWorldPosition(worldPos);
-      
+
       const satellitePos = new THREE.Vector3();
       parentRef.current.getWorldPosition(satellitePos);
-      
+
       const toInstrument = worldPos.clone().sub(satellitePos).normalize();
       const toCamera = camera.position.clone().sub(satellitePos).normalize();
       const dotProduct = toInstrument.dot(toCamera);
-      
+
       // Less aggressive fading - min opacity 0.35 instead of 0.1
       const newOpacity = THREE.MathUtils.clamp(
         THREE.MathUtils.mapLinear(dotProduct, -0.3, 0.4, 0.35, 1),
         0.35,
         1
       );
-      
+
       setOpacity(newOpacity);
     }
   });
@@ -80,19 +74,19 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
       {/* Glowing dot at instrument location */}
       <mesh>
         <sphereGeometry args={[0.045, 20, 20]} />
-        <meshBasicMaterial 
-          color={color} 
-          transparent 
+        <meshBasicMaterial
+          color={color}
+          transparent
           opacity={opacity}
         />
       </mesh>
-      
+
       {/* Outer glow ring */}
       <mesh>
         <sphereGeometry args={[0.07, 20, 20]} />
-        <meshBasicMaterial 
-          color={color} 
-          transparent 
+        <meshBasicMaterial
+          color={color}
+          transparent
           opacity={opacity * 0.25}
         />
       </mesh>
@@ -120,7 +114,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className="pointer-events-auto select-none cursor-pointer transition-all duration-300 group"
-          style={{ 
+          style={{
             opacity: opacity,
             transform: isHovered ? 'scale(1.08)' : 'scale(1)'
           }}
@@ -128,8 +122,8 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
           <div
             className="relative px-6 py-3 transition-all duration-300"
             style={{
-              background: isHovered 
-                ? 'rgba(0, 0, 0, 0.95)' 
+              background: isHovered
+                ? 'rgba(0, 0, 0, 0.95)'
                 : 'rgba(0, 0, 0, 0.88)',
               backdropFilter: 'blur(16px)',
               border: `2px solid ${color}`,
@@ -142,16 +136,16 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
             }}
           >
             {/* Animated corner accents */}
-            <span 
+            <span
               className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 transition-all duration-300"
-              style={{ 
+              style={{
                 borderColor: color,
                 opacity: isHovered ? 1 : 0.5
               }}
             />
-            <span 
+            <span
               className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 transition-all duration-300"
-              style={{ 
+              style={{
                 borderColor: color,
                 opacity: isHovered ? 1 : 0.5
               }}
@@ -160,7 +154,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
             {/* Label Text */}
             <p
               className="font-custom3 font-bold text-xl tracking-widest transition-all duration-300"
-              style={{ 
+              style={{
                 color: color,
                 textShadow: isHovered
                   ? `0 0 15px ${color}DD, 0 0 25px ${color}88`
@@ -173,9 +167,9 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
             {/* Hover indicator arrow */}
             {isHovered && (
               <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
-                <svg 
-                  width="16" 
-                  height="16" 
+                <svg
+                  width="16"
+                  height="16"
                   viewBox="0 0 16 16"
                   style={{ fill: color }}
                 >
@@ -186,7 +180,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
 
             {/* Pulse effect on hover */}
             {isHovered && (
-              <div 
+              <div
                 className="absolute inset-0 rounded-lg animate-ping"
                 style={{
                   border: `1px solid ${color}`,
@@ -214,7 +208,7 @@ function Loader() {
   );
 }
 
-function SatelliteControlPanel({ rotationSpeed, setRotationSpeed, autoRotate, setAutoRotate, lightIntensity, setLightIntensity }) {
+function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setLightIntensity }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const panelRef = useRef(null);
   const contentRef = useRef(null);
@@ -271,8 +265,8 @@ function SatelliteControlPanel({ rotationSpeed, setRotationSpeed, autoRotate, se
       {/* Expandable Content */}
       <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
         <div className="px-6 pb-6 space-y-5 border-t border-white/5 pt-5">
-          
-        
+
+
 
           {/* Auto Rotate Toggle */}
           <div className="flex items-center justify-between py-2">
@@ -284,14 +278,12 @@ function SatelliteControlPanel({ rotationSpeed, setRotationSpeed, autoRotate, se
                 clickSound.play();
                 setAutoRotate(!autoRotate);
               }}
-              className={`relative w-12 h-6 rounded-full transition-all duration-300 ${
-                autoRotate ? "bg-cyan-500/80" : "bg-white/10"
-              }`}
+              className={`relative w-12 h-6 rounded-full transition-all duration-300 ${autoRotate ? "bg-cyan-500/80" : "bg-white/10"
+                }`}
             >
               <div
-                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${
-                  autoRotate ? "translate-x-6" : "translate-x-0"
-                }`}
+                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${autoRotate ? "translate-x-6" : "translate-x-0"
+                  }`}
               />
             </button>
           </div>
@@ -319,9 +311,8 @@ function SatelliteControlPanel({ rotationSpeed, setRotationSpeed, autoRotate, se
           <button
             onClick={() => {
               clickSound.play();
-              setRotationSpeed(0);
               setAutoRotate(false);
-              setLightIntensity(1.2);
+              setLightIntensity(2.0);
             }}
             className="font-custom3 w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs uppercase tracking-wider font-medium transition-all duration-300"
           >
@@ -338,9 +329,8 @@ function SatelliteControlPanel({ rotationSpeed, setRotationSpeed, autoRotate, se
 }
 
 export default function TerraDetailsPage() {
-  const [rotationSpeed, setRotationSpeed] = useState(0);
   const [autoRotate, setAutoRotate] = useState(false);
-  const [lightIntensity, setLightIntensity] = useState(1.2);
+  const [lightIntensity, setLightIntensity] = useState(2.0);
   const terraRef = useRef();
 
   // All instruments use white color
@@ -348,42 +338,41 @@ export default function TerraDetailsPage() {
 
   // Instrument positions based on actual Terra satellite anatomy
   // anchorPosition: where the instrument actually is on the satellite
-  // position: where the label should be displayed (offset for readability)
   const instruments = [
-    { 
-      name: "MODIS", 
+    {
+      name: "MODIS",
       anchorPosition: [-0.55, -0.15, -0.25],  // Top front
-      position: [3, 1, 0], 
-      color: whiteColor, 
-      delay: 0.5 
+      // position: [3, 1, 0], 
+      color: whiteColor,
+      delay: 0.5
     },
-    { 
-      name: "ASTER", 
+    {
+      name: "ASTER",
       anchorPosition: [0.02, -0.35, -0.30],  // Front right side
-      position: [3, -0.5, 0], 
-      color: whiteColor, 
-      delay: 0.7 
+      // position: [3, -0.5, 0], 
+      color: whiteColor,
+      delay: 0.7
     },
-    { 
-      name: "MISR", 
+    {
+      name: "MISR",
       anchorPosition: [-0.15, -0.4, 0.01],  // Front left
-      position: [-3, 0.5, 0], 
-      color: whiteColor, 
-      delay: 0.9 
+      // position: [-3, 0.5, 0], 
+      color: whiteColor,
+      delay: 0.9
     },
-    { 
-      name: "CERES", 
+    {
+      name: "CERES",
       anchorPosition: [0.4, -0.30, -0.15],  // Bottom left
-      position: [-3, -1.5, 0], 
-      color: whiteColor, 
-      delay: 1.1 
+      // position: [-3, -1.5, 0], 
+      color: whiteColor,
+      delay: 1.1
     },
-    { 
-      name: "MOPITT", 
+    {
+      name: "MOPITT",
       anchorPosition: [0.25, -0.35, -0.30],  // Bottom right
-      position: [3, -1.8, 0], 
-      color: whiteColor, 
-      delay: 1.3 
+      // position: [3, -1.8, 0], 
+      color: whiteColor,
+      delay: 1.3
     },
   ];
 
@@ -397,12 +386,10 @@ export default function TerraDetailsPage() {
         <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mt-3" />
       </div>
 
-  
+
 
       {/* Control Panel */}
       <SatelliteControlPanel
-        rotationSpeed={rotationSpeed}
-        setRotationSpeed={setRotationSpeed}
         autoRotate={autoRotate}
         setAutoRotate={setAutoRotate}
         lightIntensity={lightIntensity}
@@ -410,8 +397,8 @@ export default function TerraDetailsPage() {
       />
 
       <Canvas shadows camera={{ position: [-10, 0, 10], fov: 50 }}>
-        <OrbitControls 
-          enableZoom={true} 
+        <OrbitControls
+          enableZoom={true}
           enablePan={false}
           minDistance={1}
           maxDistance={20}
@@ -434,8 +421,9 @@ export default function TerraDetailsPage() {
 
         <Suspense fallback={<Loader />}>
           <Environment files="/Backgrounds/space2.exr" background blur={0} />
-          <DetailedTerraSatellite rotationSpeed={rotationSpeed} terraRef={terraRef} />
-          
+          <DetailedTerraSatellite terraRef={terraRef} />
+          {/* <DetailedTerraSatellite rotationSpeed={rotationSpeed} terraRef={terraRef} /> */}
+
           {/* Instrument Labels */}
           {instruments.map((instrument, index) => (
             <InstrumentLabel

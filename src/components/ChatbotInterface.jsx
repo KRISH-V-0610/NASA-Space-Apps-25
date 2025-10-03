@@ -5,7 +5,7 @@ import { useSoundEffect } from "../hooks/useSoundEffect";
 
 export default function ChatbotInterface({ isOpen, onClose }) {
 
-  const useClickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+  const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
 
   const chatRef = useRef(null);
   const [message, setMessage] = useState("");
@@ -34,7 +34,7 @@ export default function ChatbotInterface({ isOpen, onClose }) {
   }, [isOpen]);
 
   const handleSend = async () => {
-    await useClickSound.play();
+    await clickSound.play();
     if (message.trim()) {
       setMessages([...messages, { type: "user", text: message }]);
       setMessage("");
@@ -97,7 +97,7 @@ export default function ChatbotInterface({ isOpen, onClose }) {
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             onClick={async (e) => {
               e.stopPropagation()
-              await useClickSound.play();
+              await clickSound.play();
             
             }}
             placeholder="Ask about Terra satellite..."
