@@ -1,8 +1,12 @@
 // components/ChatbotInterface.jsx
 import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
+import { useSoundEffect } from "../hooks/useSoundEffect";
 
 export default function ChatbotInterface({ isOpen, onClose }) {
+
+  const useClickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+
   const chatRef = useRef(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
@@ -29,7 +33,8 @@ export default function ChatbotInterface({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
+    await useClickSound.play();
     if (message.trim()) {
       setMessages([...messages, { type: "user", text: message }]);
       setMessage("");
@@ -90,6 +95,11 @@ export default function ChatbotInterface({ isOpen, onClose }) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            onClick={async (e) => {
+              e.stopPropagation()
+              await useClickSound.play();
+            
+            }}
             placeholder="Ask about Terra satellite..."
             className="flex-1 bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-all"
           />

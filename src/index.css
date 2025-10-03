@@ -273,3 +273,45 @@
   animation: energy-wave-2 0.5s ease-in-out infinite;
   animation-delay: 0.2s;
 }
+
+/* ----------------------------------- */
+
+/* Custom Range Slider Styles */
+input[type="range"].slider-cyan::-webkit-slider-thumb {
+  scale:1.5;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  transition: all 0.2s ease;
+}
+
+input[type="range"].slider-cyan::-webkit-slider-thumb:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+}
+
+input[type="range"].slider-emerald::-webkit-slider-thumb {
+  scale:1.5;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  transition: all 0.2s ease;
+}
+
+input[type="range"].slider-emerald::-webkit-slider-thumb:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+}

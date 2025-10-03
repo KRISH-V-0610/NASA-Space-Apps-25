@@ -2,18 +2,24 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import AstronautModel from "./3DModels/AstronautModel";
+// import { useSoundEffect } from "../hooks/useSoundEffect";
+
 
 export default function AstronautButton({ 
   currentAnimation, 
   setCurrentAnimation, 
   onClick 
 }) {
+    // const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+  
+
   return (
     <button
       onMouseEnter={() => setCurrentAnimation(2)}
       onMouseLeave={() => {
         if (currentAnimation === 2) setCurrentAnimation(3);
-      }}
+      }
+      }
       onClick={onClick}
       className="cursor-target absolute bottom-4 right-2 size-48 overflow-hidden shadow-2xl hover:border-cyan-400/50 transition-all duration-300 group"
     >

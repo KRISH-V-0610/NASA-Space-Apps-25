@@ -6,6 +6,14 @@ import Terra25Page from './pages/Terra25LandingPage';
 import TerraDetailsPage from './pages/TerraDetailsPage';
 import MusicToggleButton from './components/MusicToggleButton';
 
+import MisrPage from './pages/MisrPage';
+import MopittPage from './pages/MopittPage';
+import CeresPage from './pages/CeresPage';
+import AsterPage from './pages/AsterPage';
+import ModisPage from './pages/ModisPage';
+
+
+
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
   const location = useLocation();
 
@@ -23,8 +31,16 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
         } />
         <Route path="/terra25" element={<Terra25Page />} />
         <Route path="/terra-details" element={<TerraDetailsPage />} />
+
+
+         <Route path="/terra-details/modis" element={<ModisPage />} />
+        <Route path="/terra-details/aster" element={<AsterPage />} />
+        <Route path="/terra-details/misr" element={<MisrPage />} />
+        <Route path="/terra-details/ceres" element={<CeresPage />} />
+        <Route path="/terra-details/mopitt" element={<MopittPage />} /> 
+
       </Routes>
-      
+
       {/* Global Music Toggle Button - show on terra25 and terra-details pages */}
       {(location.pathname === '/terra25' || location.pathname === '/terra-details') && (
         <MusicToggleButton
@@ -53,7 +69,7 @@ const App = () => {
 
   useEffect(() => {
     const audio = audioRef.current;
-    
+
     const handleAudioCanPlay = () => {
       setAudioLoaded(true);
     };
@@ -79,8 +95,8 @@ const App = () => {
         muted={true}
         preload="auto"
       />
-      
-      <AppContent 
+
+      <AppContent
         audioRef={audioRef}
         isMuted={isMuted}
         setIsMuted={setIsMuted}

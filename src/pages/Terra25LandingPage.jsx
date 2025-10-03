@@ -10,18 +10,29 @@ import TerraSatellite from "../components/3DModels/TerraSatellite";
 import OrbitPath from "../components/3DModels/OrbitPath";
 import AstronautButton from "../components/AstronautButton";
 import ChatbotInterface from "../components/ChatbotInterface";
-import OrbitTiltControl from "../components/OrbitTiltControl";
+import AdvancedControlPanel from "../components/AdvancedControlPanel";
+import { useSoundEffect } from "../hooks/useSoundEffect";
 
 export default function Terra25Page() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [currentAnimation, setCurrentAnimation] = useState(3);
   const prevAnimationRef = useRef(currentAnimation);
+  
+  // Control panel states
   const [orbitTilt, setOrbitTilt] = useState(30);
+  const [autoRotate, setAutoRotate] = useState(true);
+  const [earthRotation, setEarthRotation] = useState(true);
+  const [orbitSpeed, setOrbitSpeed] = useState(0.002);
+  const [showOrbitPath, setShowOrbitPath] = useState(true);
+  
   const [isChatOpen, setIsChatOpen] = useState(false);
   const canvasContainerRef = useRef(null);
 
-  const handleChatToggle = () => {
+  const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+
+  const handleChatToggle = async () => {
+    await clickSound.play();
     if (!isChatOpen) {
       prevAnimationRef.current = currentAnimation;
       setCurrentAnimation(1);
@@ -31,7 +42,9 @@ export default function Terra25Page() {
     setIsChatOpen(!isChatOpen);
   };
 
-  const handleSatelliteClick = () => {
+  const handleSatelliteClick = async () => {
+    await clickSound.play();
+    
     if (canvasContainerRef.current) {
       gsap.to(canvasContainerRef.current, {
         scale: 5,
@@ -67,11 +80,12 @@ export default function Terra25Page() {
           <pointLight position={[-10, -10, -5]} intensity={0.3} />
 
           <Suspense fallback={null}>
-            <EarthModel />
-            <OrbitPath tiltAngle={orbitTilt} />
+            <EarthModel rotationEnabled={earthRotation} />
+            {showOrbitPath && <OrbitPath tiltAngle={orbitTilt} />}
             <TerraSatellite 
               tiltAngle={orbitTilt}
               onClick={handleSatelliteClick}
+              orbitSpeed={orbitSpeed}
             />
             <Environment files="/Backgrounds/space2.exr" background resolution={512} />
           </Suspense>
@@ -82,7 +96,7 @@ export default function Terra25Page() {
             maxDistance={25}
             enablePan={false}
             zoomSpeed={0.5}
-            autoRotate={false}
+            autoRotate={autoRotate}
           />
         </Canvas>
       </div>
@@ -90,7 +104,18 @@ export default function Terra25Page() {
       {/* Overlay Loading Screen */}
       {isLoading && <VideoLoadingScreen onLoadComplete={() => setIsLoading(false)} />}
 
-      <OrbitTiltControl orbitTilt={orbitTilt} setOrbitTilt={setOrbitTilt} />
+      <AdvancedControlPanel
+        orbitTilt={orbitTilt}
+        setOrbitTilt={setOrbitTilt}
+        autoRotate={autoRotate}
+        setAutoRotate={setAutoRotate}
+        earthRotation={earthRotation}
+        setEarthRotation={setEarthRotation}
+        orbitSpeed={orbitSpeed}
+        setOrbitSpeed={setOrbitSpeed}
+        showOrbitPath={showOrbitPath}
+        setShowOrbitPath={setShowOrbitPath}
+      />
       
       <AstronautButton
         currentAnimation={currentAnimation}
@@ -100,7 +125,8 @@ export default function Terra25Page() {
 
       <ChatbotInterface 
         isOpen={isChatOpen} 
-        onClose={() => {
+        onClose={async () => {
+          await clickSound.play();
           setIsChatOpen(false);
           setCurrentAnimation(3);
         }} 

@@ -1,9 +1,12 @@
-// components/3DModels/EarthModel.jsx
 import React, { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
-export default function EarthModel({ modelPath = "/3Dmodels/earth8k.glb", scale = 2.5 }) {
+export default function EarthModel({ 
+  modelPath = "/3Dmodels/earth8k.glb", 
+  scale = 2.5,
+  rotationEnabled = true 
+}) {
   const { scene, materials } = useGLTF(modelPath);
   const earthRef = useRef();
 
@@ -18,7 +21,7 @@ export default function EarthModel({ modelPath = "/3Dmodels/earth8k.glb", scale 
   }, [materials]);
 
   useFrame(() => {
-    if (earthRef.current) {
+    if (earthRef.current && rotationEnabled) {
       earthRef.current.rotation.y += 0.010;
     }
   });
