@@ -40,7 +40,7 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
         <Route path="/terra25/data-insights" element={<DataInsightsPage />} />
         <Route path="/terra25/explore" element={<ExplorePage />} />
 
-        {/* Instrument Detail Pages */}
+        {/* Instrument Detail Pages */} 
         <Route path="/terra-details/modis" element={<ModisPage />} />
         <Route path="/terra-details/aster" element={<AsterPage />} />
         <Route path="/terra-details/misr" element={<MisrPage />} />

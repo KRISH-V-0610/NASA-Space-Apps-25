@@ -15,6 +15,7 @@ export default function TerraSatellite({
   const { scene } = useGLTF(modelPath);
   const { gl } = useThree();
   const terraRef = useRef();
+  const glowLightRef = useRef();
   const angleRef = useRef(0);
   const [isHovered, setIsHovered] = useState(false);
   const scaleRef = useRef(scale);
@@ -44,6 +45,11 @@ export default function TerraSatellite({
       scaleRef.current = THREE.MathUtils.lerp(scaleRef.current, targetScale, 0.1);
       terraRef.current.scale.set(scaleRef.current, scaleRef.current, scaleRef.current);
     }
+
+    // Update glow light position to follow satellite
+    if (glowLightRef.current && terraRef.current) {
+      glowLightRef.current.position.copy(terraRef.current.position);
+    }
   });
 
   const handlePointerOver = () => {
@@ -56,8 +62,37 @@ export default function TerraSatellite({
     gl.domElement.style.cursor = 'default';
   };
 
+  const handleClick = () => {
+    if (onClick && terraRef.current) {
+      // Pass the current satellite position to the onClick handler
+      onClick(terraRef.current.position.clone());
+    }
+  };
+
   return (
     <group>
+      {/* Enhanced cyan glow for clickability hint */}
+      <pointLight 
+        ref={glowLightRef}
+        intensity={isHovered ? 1.2 : 0.4}
+        color="#00ffff"
+        distance={1.8}
+      />
+
+      {/* Subtle outer glow ring (more visible when hovered) */}
+      {isHovered && (
+        <pointLight 
+          position={[
+            terraRef.current?.position.x || 0,
+            terraRef.current?.position.y || 0,
+            terraRef.current?.position.z || 0
+          ]}
+          intensity={0.6}
+          color="#06b6d4"
+          distance={2.5}
+        />
+      )}
+
       {/* Large invisible hitbox for easy clicking */}
       <mesh
         position={[
@@ -67,7 +102,7 @@ export default function TerraSatellite({
         ]}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
-        onClick={onClick}
+        onClick={handleClick}
       >
         <sphereGeometry args={[0.6, 16, 16]} />
         <meshBasicMaterial transparent opacity={0} />

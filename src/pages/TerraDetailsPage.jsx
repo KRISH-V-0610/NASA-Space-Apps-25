@@ -5,12 +5,24 @@ import { Environment, OrbitControls, useGLTF, Html, Line } from "@react-three/dr
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { useSoundEffect } from "../hooks/useSoundEffect";
+import SimpleReloadLoader from "../components/SimpleReloadLoader";
 import * as THREE from "three";
 
 
-function DetailedTerraSatellite({ terraRef }) {
+function DetailedTerraSatellite({ terraRef, onPositioned }) {
   const { scene } = useGLTF("/3Dmodels/terra2.glb");
+  const frameCount = useRef(0);
+  const [hasReportedReady, setHasReportedReady] = useState(false);
 
+  useFrame(() => {
+    frameCount.current++;
+    
+    // After 3 frames, the satellite should be properly positioned
+    if (frameCount.current === 3 && !hasReportedReady && onPositioned) {
+      setHasReportedReady(true);
+      onPositioned();
+    }
+  });
 
   return <primitive ref={terraRef} object={scene} scale={0.0004} />;
 }
@@ -196,16 +208,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
 }
 
 function Loader() {
-  return (
-    <Html center>
-      <div className="flex flex-col items-center space-y-4">
-        <div className="relative w-16 h-16">
-          <div className="absolute inset-0 border-4 border-transparent border-t-cyan-400 rounded-full animate-spin"></div>
-        </div>
-        <p className="text-white text-lg font-light tracking-wider">Loading Terra Satellite</p>
-      </div>
-    </Html>
-  );
+  return null; // Remove the blue loader, use Suspense fallback instead
 }
 
 function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setLightIntensity }) {
@@ -248,7 +251,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
       <button onClick={togglePanel} className="w-full px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          <span className="font-custom3 text-white/90 text-sm  tracking-widest font-medium">
+          <span className="font-custom3 text-white/90 text-sm tracking-widest font-medium">
             Satellite Controls
           </span>
         </div>
@@ -265,12 +268,9 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
       {/* Expandable Content */}
       <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
         <div className="px-6 pb-6 space-y-5 border-t border-white/5 pt-5">
-
-
-
           {/* Auto Rotate Toggle */}
           <div className="flex items-center justify-between py-2">
-            <label className="font-custom3 text-white/70 text-xs  tracking-wider font-medium">
+            <label className="font-custom3 text-white/70 text-xs tracking-wider font-medium">
               Auto Rotate View
             </label>
             <button
@@ -278,12 +278,10 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
                 clickSound.play();
                 setAutoRotate(!autoRotate);
               }}
-              className={`relative w-12 h-6 rounded-full transition-all duration-300 ${autoRotate ? "bg-cyan-500/80" : "bg-white/10"
-                }`}
+              className={`relative w-12 h-6 rounded-full transition-all duration-300 ${autoRotate ? "bg-cyan-500/80" : "bg-white/10"}`}
             >
               <div
-                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${autoRotate ? "translate-x-6" : "translate-x-0"
-                  }`}
+                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${autoRotate ? "translate-x-6" : "translate-x-0"}`}
               />
             </button>
           </div>
@@ -291,10 +289,10 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
           {/* Light Intensity */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="font-custom3 text-white/70 text-xs  tracking-wider font-medium">
+              <label className="font-custom3 text-white/70 text-xs tracking-wider font-medium">
                 Light Intensity
               </label>
-              <span className="text-emerald-400 text-sm font-thin ">{lightIntensity.toFixed(1)}</span>
+              <span className="text-emerald-400 text-sm font-thin">{lightIntensity.toFixed(1)}</span>
             </div>
             <input
               type="range"
@@ -303,7 +301,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
               step="0.1"
               value={lightIntensity}
               onChange={(e) => setLightIntensity(Number(e.target.value))}
-              className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer slider-emerald "
+              className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer slider-emerald"
             />
           </div>
 
@@ -314,7 +312,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
               setAutoRotate(false);
               setLightIntensity(2.0);
             }}
-            className="font-custom3 w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs  tracking-wider font-medium transition-all duration-300"
+            className="font-custom3 w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs tracking-wider font-medium transition-all duration-300"
           >
             Reset to Defaults
           </button>
@@ -329,55 +327,77 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
 }
 
 export default function TerraDetailsPage() {
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
   const [lightIntensity, setLightIntensity] = useState(2.0);
   const terraRef = useRef();
+  const [satelliteReady, setSatelliteReady] = useState(false);
+  const [isReloading, setIsReloading] = useState(false);
+
+  // Auto-reload logic on first mount from navigation
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasReloaded = urlParams.get('reloaded');
+    
+    if (!hasReloaded) {
+      // Mark that we're about to reload by adding query param
+      setIsReloading(true);
+      
+      // Small delay to show loader, then reload with param
+      setTimeout(() => {
+        window.location.href = window.location.pathname + '?reloaded=true';
+      }, 300);
+    }
+  }, []);
 
   // All instruments use white color
   const whiteColor = "#ffffff";
 
   // Instrument positions based on actual Terra satellite anatomy
-  // anchorPosition: where the instrument actually is on the satellite
   const instruments = [
     {
       name: "MODIS",
-      anchorPosition: [-0.55, -0.15, -0.25],  // Top front
-      // position: [3, 1, 0], 
+      anchorPosition: [-0.55, -0.15, -0.25],
       color: whiteColor,
       delay: 0.5
     },
     {
       name: "ASTER",
-      anchorPosition: [0.02, -0.35, -0.30],  // Front right side
-      // position: [3, -0.5, 0], 
+      anchorPosition: [0.02, -0.35, -0.30],
       color: whiteColor,
       delay: 0.7
     },
     {
       name: "MISR",
-      anchorPosition: [-0.15, -0.4, 0.01],  // Front left
-      // position: [-3, 0.5, 0], 
+      anchorPosition: [-0.15, -0.4, 0.01],
       color: whiteColor,
       delay: 0.9
     },
     {
       name: "CERES",
-      anchorPosition: [0.4, -0.30, -0.15],  // Bottom left
-      // position: [-3, -1.5, 0], 
+      anchorPosition: [0.4, -0.30, -0.15],
       color: whiteColor,
       delay: 1.1
     },
     {
       name: "MOPITT",
-      anchorPosition: [0.25, -0.35, -0.30],  // Bottom right
-      // position: [3, -1.8, 0], 
+      anchorPosition: [0.25, -0.35, -0.30],
       color: whiteColor,
       delay: 1.3
     },
   ];
 
+  const handleSatellitePositioned = () => {
+    console.log("Satellite positioned, showing labels");
+    setSatelliteReady(true);
+  };
+
+  // Show reload loader during reload
+  if (isReloading) {
+    return <SimpleReloadLoader />;
+  }
+
   return (
-    <div className="w-screen h-screen relative">
+    <div className="w-screen h-screen relative bg-black">
       {/* Title */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">
         <h1 className="text-4xl font-custom3 text-white tracking-wider text-center drop-shadow-lg">
@@ -385,8 +405,6 @@ export default function TerraDetailsPage() {
         </h1>
         <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mt-3" />
       </div>
-
-
 
       {/* Control Panel */}
       <SatelliteControlPanel
@@ -421,11 +439,13 @@ export default function TerraDetailsPage() {
 
         <Suspense fallback={<Loader />}>
           <Environment files="/Backgrounds/space2.exr" background blur={0} />
-          <DetailedTerraSatellite terraRef={terraRef} />
-          {/* <DetailedTerraSatellite rotationSpeed={rotationSpeed} terraRef={terraRef} /> */}
+          <DetailedTerraSatellite 
+            terraRef={terraRef} 
+            onPositioned={handleSatellitePositioned}
+          />
 
-          {/* Instrument Labels */}
-          {instruments.map((instrument, index) => (
+          {/* Instrument Labels - only render when satellite is ready */}
+          {satelliteReady && instruments.map((instrument, index) => (
             <InstrumentLabel
               key={index}
               anchorPosition={instrument.anchorPosition}

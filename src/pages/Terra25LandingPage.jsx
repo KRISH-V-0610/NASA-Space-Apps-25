@@ -1,6 +1,6 @@
 // pages/Terra25LandingPage.jsx
 import React, { Suspense, useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
@@ -12,8 +12,34 @@ import ChatbotInterface from "../components/ChatbotInterface";
 import AdvancedControlPanel from "../components/AdvancedControlPanel";
 import VideoLoadingScreen from "../components/VideoLoadingScreen";
 import NavigationHeader from "../components/NavigationHeader";
+// import SatelliteHintTooltip from "../components/SatelliteHintTooltip";
 import { useSoundEffect } from "../hooks/useSoundEffect";
 
+// Camera controller to zoom to satellite position
+function CameraZoomController({ satellitePosition, shouldZoom, onZoomComplete }) {
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    if (shouldZoom && satellitePosition) {
+      // Calculate direction from satellite to camera
+      const direction = camera.position.clone().sub(satellitePosition).normalize();
+      
+      // Target position: close to satellite but maintain viewing angle
+      const targetPosition = satellitePosition.clone().add(direction.multiplyScalar(2));
+      
+      gsap.to(camera.position, {
+        x: targetPosition.x,
+        y: targetPosition.y,
+        z: targetPosition.z,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onComplete: onZoomComplete
+      });
+    }
+  }, [shouldZoom, satellitePosition, camera, onZoomComplete]);
+  
+  return null;
+}
 
 export default function Terra25Page() {
   const navigate = useNavigate();
@@ -34,6 +60,10 @@ export default function Terra25Page() {
   const loadingStartTimeRef = useRef(null);
   const minLoadingDurationRef = useRef(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  
+  // Satellite zoom state
+  const [satellitePosition, setSatellitePosition] = useState(null);
+  const [shouldZoomToSatellite, setShouldZoomToSatellite] = useState(false);
 
   const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
 
@@ -78,20 +108,20 @@ export default function Terra25Page() {
     setIsChatOpen(!isChatOpen);
   };
 
-  const handleSatelliteClick = async () => {
+  const handleSatelliteClick = async (position) => {
     await clickSound.play();
     
-    if (canvasContainerRef.current) {
-      gsap.to(canvasContainerRef.current, {
-        scale: 5,
-        duration: 1.5,
-        ease: "power2.inOut"
-      });
+    // Store satellite position and trigger zoom
+    setSatellitePosition(position);
+    setShouldZoomToSatellite(true);
+  };
 
+  const handleZoomComplete = () => {
+    // Fade out canvas after zoom completes
+    if (canvasContainerRef.current) {
       gsap.to(canvasContainerRef.current, {
         opacity: 0,
         duration: 0.8,
-        delay: 0.7,
         ease: "power2.in",
         onComplete: () => {
           navigate('/terra-details');
@@ -127,6 +157,13 @@ export default function Terra25Page() {
               orbitSpeed={orbitSpeed}
             />
             <Environment files="/Backgrounds/space2.exr" background resolution={512} />
+            
+            {/* Camera zoom controller */}
+            <CameraZoomController 
+              satellitePosition={satellitePosition}
+              shouldZoom={shouldZoomToSatellite}
+              onZoomComplete={handleZoomComplete}
+            />
           </Suspense>
 
           <OrbitControls
@@ -151,6 +188,7 @@ export default function Terra25Page() {
         />
       )}
 
+      {/* Satellite Hint Tooltip - shows only once for first-time users */}
       {/* {!showLoading && <SatelliteHintTooltip />} */}
 
       {/* UI Elements - hide during loading */}

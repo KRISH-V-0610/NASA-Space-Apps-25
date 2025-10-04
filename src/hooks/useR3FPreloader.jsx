@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // hooks/useR3FPreloader.jsx
 import { useState, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
