@@ -5,13 +5,9 @@ import { gsap } from "gsap";
 import TargetCursor from "../components/ui/TargetCursor";
 import MusicToggleButton from "../components/MusicToggleButton";
 import RocketSlider from "../components/RocketSlider";
-
-
-
+import { useR3FPreloader } from "../hooks/useR3FPreloader";
 
 export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMuted, audioLoaded }) {
-
-
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef(null);
   const contentRef = useRef(null);
@@ -20,6 +16,9 @@ export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMute
   const rocketSliderRef = useRef(null);
   const musicButtonRef = useRef(null);
   const navigate = useNavigate();
+
+  // Preload R3F assets in background
+  const { progress, isReady } = useR3FPreloader();
 
   // Set up event listeners for video loading
   useEffect(() => {
@@ -137,13 +136,20 @@ export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMute
 
   // Handle rocket launch navigation
   const handleRocketLaunch = () => {
+    // Always allow launch - loading screen will show on Terra25
     const tl = gsap.timeline({
       onComplete: () => {
-        navigate("/terra25");
+        // Navigate with state indicating we need loading screen
+        navigate("/terra25", { 
+          state: { 
+            showLoadingOverlay: true,
+            assetsPreloaded: isReady 
+          } 
+        });
       }
     });
 
-    // Extended zoom and fade video
+    // Zoom and fade video
     tl.to(videoRef.current, {
       scale: 4,
       opacity: 0,
@@ -199,7 +205,7 @@ export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMute
           </h2>
         </div>
 
-        {/* Loading indicator */}
+        {/* Initial video loading indicator */}
         {!videoLoaded && (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-black/60 backdrop-blur-md border border-white/10">
             <div className="flex items-center justify-center space-x-4">
@@ -238,6 +244,13 @@ export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMute
           onToggle={toggleMute}
         />
       </div>
+
+      {/* Preload Progress Indicator */}
+      {!isReady && videoLoaded && (
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white/40 text-xs font-custom3">
+          Preparing experience... {Math.round(progress)}%
+        </div>
+      )}
     </div>
   );
 }

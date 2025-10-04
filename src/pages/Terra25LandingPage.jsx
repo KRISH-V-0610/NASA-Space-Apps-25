@@ -1,21 +1,21 @@
 // pages/Terra25LandingPage.jsx
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import VideoLoadingScreen from "../components/VideoLoadingScreen";
 import EarthModel from "../components/3DModels/EarthModel";
 import TerraSatellite from "../components/3DModels/TerraSatellite";
 import OrbitPath from "../components/3DModels/OrbitPath";
 import AstronautButton from "../components/AstronautButton";
 import ChatbotInterface from "../components/ChatbotInterface";
 import AdvancedControlPanel from "../components/AdvancedControlPanel";
+import VideoLoadingScreen from "../components/VideoLoadingScreen";
 import { useSoundEffect } from "../hooks/useSoundEffect";
 
 export default function Terra25Page() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
   const [currentAnimation, setCurrentAnimation] = useState(3);
   const prevAnimationRef = useRef(currentAnimation);
   
@@ -27,9 +27,43 @@ export default function Terra25Page() {
   const [showOrbitPath, setShowOrbitPath] = useState(true);
   
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
   const canvasContainerRef = useRef(null);
+  const loadingStartTimeRef = useRef(null);
+  const minLoadingDurationRef = useRef(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
+
+  // Handle loading overlay from intro page
+  useEffect(() => {
+    if (location.state?.showLoadingOverlay) {
+      setShowLoading(true);
+      // Generate random delay 3-5 seconds
+      const minDelay = 3000 + Math.random() * 2000;
+      minLoadingDurationRef.current = minDelay;
+      loadingStartTimeRef.current = Date.now();
+      
+      console.log(`Loading overlay will display for ${(minDelay / 1000).toFixed(1)} seconds`);
+      
+      // Simulate progress over the delay period
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - loadingStartTimeRef.current;
+        const progress = Math.min((elapsed / minDelay) * 100, 100);
+        setLoadingProgress(progress);
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          // Wait a bit at 100% then hide
+          setTimeout(() => {
+            setShowLoading(false);
+          }, 500);
+        }
+      }, 50);
+
+      return () => clearInterval(interval);
+    }
+  }, [location]);
 
   const handleChatToggle = async () => {
     await clickSound.play();
@@ -101,36 +135,49 @@ export default function Terra25Page() {
         </Canvas>
       </div>
 
-      {/* Overlay Loading Screen */}
-      {isLoading && <VideoLoadingScreen onLoadComplete={() => setIsLoading(false)} />}
+      {/* Loading Overlay */}
+      {showLoading && (
+        <VideoLoadingScreen 
+          progress={loadingProgress}
+          isReady={loadingProgress >= 100}
+          minDuration={minLoadingDurationRef.current}
+          startTime={loadingStartTimeRef.current}
+          onLoadComplete={() => setShowLoading(false)}
+        />
+      )}
 
-      <AdvancedControlPanel
-        orbitTilt={orbitTilt}
-        setOrbitTilt={setOrbitTilt}
-        autoRotate={autoRotate}
-        setAutoRotate={setAutoRotate}
-        earthRotation={earthRotation}
-        setEarthRotation={setEarthRotation}
-        orbitSpeed={orbitSpeed}
-        setOrbitSpeed={setOrbitSpeed}
-        showOrbitPath={showOrbitPath}
-        setShowOrbitPath={setShowOrbitPath}
-      />
-      
-      <AstronautButton
-        currentAnimation={currentAnimation}
-        setCurrentAnimation={setCurrentAnimation}
-        onClick={handleChatToggle}
-      />
+      {/* UI Elements - hide during loading */}
+      {!showLoading && (
+        <>
+          <AdvancedControlPanel
+            orbitTilt={orbitTilt}
+            setOrbitTilt={setOrbitTilt}
+            autoRotate={autoRotate}
+            setAutoRotate={setAutoRotate}
+            earthRotation={earthRotation}
+            setEarthRotation={setEarthRotation}
+            orbitSpeed={orbitSpeed}
+            setOrbitSpeed={setOrbitSpeed}
+            showOrbitPath={showOrbitPath}
+            setShowOrbitPath={setShowOrbitPath}
+          />
+          
+          <AstronautButton
+            currentAnimation={currentAnimation}
+            setCurrentAnimation={setCurrentAnimation}
+            onClick={handleChatToggle}
+          />
 
-      <ChatbotInterface 
-        isOpen={isChatOpen} 
-        onClose={async () => {
-          await clickSound.play();
-          setIsChatOpen(false);
-          setCurrentAnimation(3);
-        }} 
-      />
+          <ChatbotInterface 
+            isOpen={isChatOpen} 
+            onClose={async () => {
+              await clickSound.play();
+              setIsChatOpen(false);
+              setCurrentAnimation(3);
+            }} 
+          />
+        </>
+      )}
     </div>
   );
 }

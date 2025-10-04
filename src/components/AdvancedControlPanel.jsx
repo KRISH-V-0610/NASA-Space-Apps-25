@@ -65,7 +65,7 @@ export default function AdvancedControlPanel({
       >
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          <span className="text-white/90 text-sm uppercase tracking-widest font-medium">
+          <span className="text-white/90 text-sm  tracking-widest font-medium">
             Scene Controls
           </span>
         </div>
@@ -93,7 +93,7 @@ export default function AdvancedControlPanel({
           {/* Orbit Tilt Slider */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="text-white/70 text-xs uppercase tracking-wider font-medium">
+              <label className="text-white/70 text-xs  tracking-wider font-medium">
                 Orbit Tilt
               </label>
               <span className="text-cyan-400 text-sm font-bold">{orbitTilt}°</span>
@@ -110,7 +110,7 @@ export default function AdvancedControlPanel({
 
           {/* Camera Auto Rotate Toggle */}
           <div className="flex items-center justify-between py-2">
-            <label className="text-white/70 text-xs uppercase tracking-wider font-medium">
+            <label className="text-white/70 text-xs  tracking-wider font-medium">
               Auto Rotate Camera
             </label>
             <button
@@ -129,7 +129,7 @@ export default function AdvancedControlPanel({
 
           {/* Earth Rotation Toggle */}
           <div className="flex items-center justify-between py-2">
-            <label className="text-white/70 text-xs uppercase tracking-wider font-medium">
+            <label className="text-white/70 text-xs  tracking-wider font-medium">
               Earth Rotation
             </label>
             <button
@@ -149,7 +149,7 @@ export default function AdvancedControlPanel({
           {/* Orbit Speed Slider */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="text-white/70 text-xs uppercase tracking-wider font-medium">
+              <label className="text-white/70 text-xs  tracking-wider font-medium">
                 Satellite Speed
               </label>
               <span className="text-emerald-400 text-sm font-bold">{orbitSpeed.toFixed(3)}x</span>
@@ -167,7 +167,7 @@ export default function AdvancedControlPanel({
 
           {/* Show Orbit Path Toggle */}
           <div className="flex items-center justify-between py-2">
-            <label className="text-white/70 text-xs uppercase tracking-wider font-medium">
+            <label className="text-white/70 text-xs  tracking-wider font-medium">
               Show Orbit Path
             </label>
             <button
@@ -194,7 +194,7 @@ export default function AdvancedControlPanel({
               setOrbitSpeed(0.002);
               setShowOrbitPath(true);
             }}
-            className="w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs uppercase tracking-wider font-medium transition-all duration-300"
+            className="w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs  tracking-wider font-medium transition-all duration-300"
           >
             Reset to Defaults
           </button>

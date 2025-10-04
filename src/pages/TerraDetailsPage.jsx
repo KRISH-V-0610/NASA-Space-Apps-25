@@ -248,7 +248,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
       <button onClick={togglePanel} className="w-full px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          <span className="font-custom3 text-white/90 text-sm uppercase tracking-widest font-medium">
+          <span className="font-custom3 text-white/90 text-sm  tracking-widest font-medium">
             Satellite Controls
           </span>
         </div>
@@ -270,7 +270,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
 
           {/* Auto Rotate Toggle */}
           <div className="flex items-center justify-between py-2">
-            <label className="font-custom3 text-white/70 text-xs uppercase tracking-wider font-medium">
+            <label className="font-custom3 text-white/70 text-xs  tracking-wider font-medium">
               Auto Rotate View
             </label>
             <button
@@ -291,7 +291,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
           {/* Light Intensity */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="font-custom3 text-white/70 text-xs uppercase tracking-wider font-medium">
+              <label className="font-custom3 text-white/70 text-xs  tracking-wider font-medium">
                 Light Intensity
               </label>
               <span className="text-emerald-400 text-sm font-thin ">{lightIntensity.toFixed(1)}</span>
@@ -314,7 +314,7 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
               setAutoRotate(false);
               setLightIntensity(2.0);
             }}
-            className="font-custom3 w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs uppercase tracking-wider font-medium transition-all duration-300"
+            className="font-custom3 w-full mt-3 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-lg text-white/70 hover:text-cyan-400 text-xs  tracking-wider font-medium transition-all duration-300"
           >
             Reset to Defaults
           </button>

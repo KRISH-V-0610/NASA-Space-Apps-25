@@ -58,7 +58,7 @@ const MusicToggleButton = ({
           <div className="w-1 h-6 bg-white/40 animate-pulse" style={{ animationDelay: '0.3s' }}></div>
           <div className="w-1 h-6 bg-white/40 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
         </div>
-        <span className="text-xs uppercase tracking-widest font-medium">Loading</span>
+        <span className="text-xs  tracking-widest font-medium">Loading</span>
         {/* Corner accents */}
         <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20"></span>
         <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20"></span>
@@ -111,7 +111,7 @@ const MusicToggleButton = ({
       </div>
 
       {/* Status text */}
-      <span className=" font-custom3 text-xs uppercase tracking-widest font-bold relative z-10 transition-all duration-300">
+      <span className=" font-custom3 text-xs  tracking-widest font-bold relative z-10 transition-all duration-300">
         {isMuted ? "Muted" : "Playing"}
       </span>
 
