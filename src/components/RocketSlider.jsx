@@ -5,7 +5,7 @@ import { IoMdRocket } from "react-icons/io";
 
 
 const RocketSlider = ({ onLaunch, onLaunchStart }) => {
-  const rocketSound = useSoundEffect("/sounds/rocket.wav", { volume: 0.15 });
+  const rocketSound = useSoundEffect("/sounds/rocket.wav", { volume: 0.25 });
 
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(0);

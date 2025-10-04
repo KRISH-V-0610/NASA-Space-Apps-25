@@ -109,7 +109,8 @@ export default function VideoLoadingScreen({
         <div className="w-[400px] max-w-[90vw]">
           <div className="relative h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
             <div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full transition-all duration-300 ease-out"
+              className="absolute top-0 left-0 h-full bg-white/90
+              rounded-full transition-all duration-300 ease-out"
               style={{ width: `${Math.min(displayProgress, 100)}%` }}
             >
               <div className="absolute inset-0 bg-white/20 animate-pulse" />
@@ -118,7 +119,7 @@ export default function VideoLoadingScreen({
           
           {/* Progress percentage */}
           <div className="mt-3 text-center">
-            <span className="text-cyan-400 font-custom3 text-sm tracking-wider">
+            <span className="text-white font-custom3 text-sm tracking-wider">
               {Math.round(displayProgress)}%
             </span>
           </div>

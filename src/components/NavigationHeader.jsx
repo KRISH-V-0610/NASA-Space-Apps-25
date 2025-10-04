@@ -128,7 +128,7 @@ export default function NavigationHeader({ teamName = "TEAM TERRA" }) {
   };
 
   return (
-    <div className="fixed top-24 left-12 z-40 flex flex-col gap-6" style={{ opacity: 1 }}>
+    <div className="fixed top-24 left-12 z-40 flex mt-16 flex-col gap-6" style={{ opacity: 1 }}>
       {/* Team Name */}
       <div ref={teamNameRef} className="relative" style={{ opacity: 1 }}>
         <h1 className="font-custom3 text-white tracking-widest font-bold drop-shadow-lg">
@@ -158,7 +158,8 @@ export default function NavigationHeader({ teamName = "TEAM TERRA" }) {
             <div className="nav-glow absolute inset-0 bg-white/20 blur-xl opacity-0" />
 
             {/* Pulse effect on click */}
-            <div className="nav-pulse absolute inset-0 border-2 border-white opacity-0" />
+            <div className="nav-pulse absolute inset-0 border-[1px]  
+            border-white opacity-0" />
 
             {/* Main button content */}
             <div className="relative px-5 py-3 border-2 border-white/60 bg-black/70 backdrop-blur-md transition-all duration-300 group-hover:border-white group-hover:bg-black/80 shadow-lg">
