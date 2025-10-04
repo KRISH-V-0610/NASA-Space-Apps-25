@@ -12,7 +12,10 @@ import CeresPage from './pages/CeresPage';
 import AsterPage from './pages/AsterPage';
 import ModisPage from './pages/ModisPage';
 
-
+// Import new navigation pages
+import AboutPage from './pages/AboutPage';
+import DataInsightsPage from './pages/DataInsightsPage';
+import ExplorePage from './pages/ExplorePage';
 
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
   const location = useLocation();
@@ -32,13 +35,17 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
         <Route path="/terra25" element={<Terra25Page />} />
         <Route path="/terra-details" element={<TerraDetailsPage />} />
 
+        {/* Navigation Pages */}
+        <Route path="/terra25/about" element={<AboutPage />} />
+        <Route path="/terra25/data-insights" element={<DataInsightsPage />} />
+        <Route path="/terra25/explore" element={<ExplorePage />} />
 
-         <Route path="/terra-details/modis" element={<ModisPage />} />
+        {/* Instrument Detail Pages */}
+        <Route path="/terra-details/modis" element={<ModisPage />} />
         <Route path="/terra-details/aster" element={<AsterPage />} />
         <Route path="/terra-details/misr" element={<MisrPage />} />
         <Route path="/terra-details/ceres" element={<CeresPage />} />
         <Route path="/terra-details/mopitt" element={<MopittPage />} /> 
-
       </Routes>
 
       {/* Global Music Toggle Button - show on terra25 and terra-details pages */}

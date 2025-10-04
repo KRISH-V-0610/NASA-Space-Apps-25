@@ -23,7 +23,7 @@
 }
 
 @font-face {
-  font-family: "MyCustomFont3";   /* 👈 name you'll use in Tailwind */
+  font-family: "MyCustomFont3";
   src: url("/fonts/BAHNSCHRIFT.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -34,7 +34,31 @@
   --font-custom3: "MyCustomFont3", serif;
 }
 
+/* Navigation Button Enhanced Styles */
+.nav-button {
+  position: relative;
+  isolation: isolate;
+}
 
+.nav-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-button:hover::before {
+  opacity: 1;
+}
+
+/* Ensure text is always visible */
+.nav-button span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
 
 /* -------------------------------------------------------------------------- */
 

@@ -11,7 +11,9 @@ import AstronautButton from "../components/AstronautButton";
 import ChatbotInterface from "../components/ChatbotInterface";
 import AdvancedControlPanel from "../components/AdvancedControlPanel";
 import VideoLoadingScreen from "../components/VideoLoadingScreen";
+import NavigationHeader from "../components/NavigationHeader";
 import { useSoundEffect } from "../hooks/useSoundEffect";
+
 
 export default function Terra25Page() {
   const navigate = useNavigate();
@@ -100,6 +102,9 @@ export default function Terra25Page() {
 
   return (
     <div className="font-custom3 w-screen h-screen bg-black relative overflow-hidden">
+      {/* Navigation Header */}
+      {!showLoading && <NavigationHeader teamName="DOMinators" />}
+
       {/* 3D Scene */}
       <div ref={canvasContainerRef} className="w-full h-full" style={{ transformOrigin: 'center center' }}>
         <Canvas camera={{ position: [0, 3, 12], fov: 50 }} shadows>
@@ -145,6 +150,8 @@ export default function Terra25Page() {
           onLoadComplete={() => setShowLoading(false)}
         />
       )}
+
+      {/* {!showLoading && <SatelliteHintTooltip />} */}
 
       {/* UI Elements - hide during loading */}
       {!showLoading && (
