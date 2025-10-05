@@ -2,7 +2,7 @@
 // components/VideoLoadingScreen.jsx
 import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
-import TextType from "./ui/TextType";
+import TextType from "./ui/TextType.jsx";
 
 export default function VideoLoadingScreen({ 
   onLoadComplete,

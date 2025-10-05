@@ -1,7 +1,7 @@
 // components/AdvancedControlPanel.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { useSoundEffect } from "../hooks/useSoundEffect";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
 
 export default function AdvancedControlPanel({
   orbitTilt,

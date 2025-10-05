@@ -10,9 +10,9 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import Map from '../components/Map';
-import WildfireHeroSection from '../components/WildfireHeroSection';
-import BackButton from '../components/BackButton';
+import Map from '../components/Map.jsx';
+import WildfireHeroSection from '../components/WildfireHeroSection.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {

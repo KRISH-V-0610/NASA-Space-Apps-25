@@ -3,8 +3,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { useSoundEffect } from "../hooks/useSoundEffect";
-import { IoEarthOutline } from "react-icons/io5";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
+import { IoEarthOutline } from "react-icons/io5.jsx";
 
 
 export default function NavigationHeader({ teamName = "TEAM TERRA" }) {

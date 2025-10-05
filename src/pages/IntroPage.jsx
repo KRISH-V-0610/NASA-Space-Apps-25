@@ -2,10 +2,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import TargetCursor from "../components/ui/TargetCursor";
-import MusicToggleButton from "../components/MusicToggleButton";
-import RocketSlider from "../components/RocketSlider";
-import { useR3FPreloader } from "../hooks/useR3FPreloader";
+import TargetCursor from "../components/ui/TargetCursor.jsx";
+import MusicToggleButton from "../components/MusicToggleButton.jsx";
+import RocketSlider from "../components/RocketSlider.jsx";
+import { useR3FPreloader } from "../hooks/useR3FPreloader.jsx";
 
 export default function VideoBackground({ videoSrc, audioRef, isMuted, setIsMuted, audioLoaded }) {
   const [videoLoaded, setVideoLoaded] = useState(false);

@@ -4,10 +4,10 @@ import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
-import { useSoundEffect } from "../hooks/useSoundEffect";
-import { BiSolidSend } from "react-icons/bi";
-import { IoClose } from "react-icons/io5";
-import { GiAstronautHelmet } from "react-icons/gi";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
+import { BiSolidSend } from "react-icons/bi.jsx";
+import { IoClose } from "react-icons/io5.jsx";
+import { GiAstronautHelmet } from "react-icons/gi.jsx";
 
 const API_BASE_URL = "https://nasa-25-terranaut.onrender.com";
 

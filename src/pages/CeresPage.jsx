@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { IoArrowBack, IoSunny, IoCloud, IoStatsChart, IoAnalytics } from "react-icons/io5";
-import AudioPlayerButton from "../components/AudioPlayerButton";
+import { IoArrowBack, IoSunny, IoCloud, IoStatsChart, IoAnalytics } from "react-icons/io5.jsx";
+import AudioPlayerButton from "../components/AudioPlayerButton.jsx";
 
 
 export default function CeresPage() {

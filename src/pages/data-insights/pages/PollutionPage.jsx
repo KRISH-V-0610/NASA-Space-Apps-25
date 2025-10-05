@@ -16,10 +16,10 @@ import {
   Droplets,
   Wind
 } from 'lucide-react';
-import Map from '../components/Map';
-import PollutionHeroSection from '../components/PollutionHeroSection';
-import AirQuality from '../components/AirQuality';
-import BackButton from '../components/BackButton';
+import Map from '../components/Map.jsx';
+import PollutionHeroSection from '../components/PollutionHeroSection.jsx';
+import AirQuality from '../components/AirQuality.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {

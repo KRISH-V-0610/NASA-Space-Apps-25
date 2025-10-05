@@ -1,6 +1,6 @@
 // src/pages/data-insights/DataInsightsPage.jsx
 import React from 'react';
-import StationNavigator from './components/StationNavigator';
+import StationNavigator from './components/StationNavigator.jsx';
 
 function DataInsightsPage() {
   return (

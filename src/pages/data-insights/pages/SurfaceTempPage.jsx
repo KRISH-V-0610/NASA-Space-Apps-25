@@ -14,11 +14,11 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import BackButton from '../components/BackButton';
-import SurfaceTemp from '../components/SurfaceTemp';
-import VideoMap from '../components/VideoMap';
-import MediaMap from '../components/MediaMap';
-import Map from '../components/Map';
+import BackButton from '../components/BackButton.jsx';
+import SurfaceTemp from '../components/SurfaceTemp.jsx';
+import VideoMap from '../components/VideoMap.jsx';
+import MediaMap from '../components/MediaMap.jsx';
+import Map from '../components/Map.jsx';
 
 // Video Background Component with proper state management
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {

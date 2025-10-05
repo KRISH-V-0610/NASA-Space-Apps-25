@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { useSoundEffect } from '../hooks/useSoundEffect';
-import { IoMdRocket } from "react-icons/io";
+import { useSoundEffect } from '../hooks/useSoundEffect.jsx';
+import { IoMdRocket } from "react-icons/io.jsx";
 
 
 const RocketSlider = ({ onLaunch, onLaunchStart }) => {

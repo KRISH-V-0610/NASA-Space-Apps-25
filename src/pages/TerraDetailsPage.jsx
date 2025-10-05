@@ -4,13 +4,13 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF, Html, Line } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { useSoundEffect } from "../hooks/useSoundEffect";
-import SimpleReloadLoader from "../components/SimpleReloadLoader";
-import AudioPlayerButton from "../components/AudioPlayerButton"; // NEW IMPORT
-import AstronautButton from "../components/AstronautButton"; // NEW IMPORT
-import ChatbotInterface from "../components/ChatbotInterface"; // NEW IMPORT
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
+import SimpleReloadLoader from "../components/SimpleReloadLoader.jsx";
+import AudioPlayerButton from "../components/AudioPlayerButton.jsx"; // NEW IMPORT
+import AstronautButton from "../components/AstronautButton.jsx"; // NEW IMPORT
+import ChatbotInterface from "../components/ChatbotInterface.jsx"; // NEW IMPORT
 import * as THREE from "three";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5.jsx";
 
 // ... (keep all your existing functions: DetailedTerraSatellite, InstrumentLabel, Loader, SatelliteControlPanel)
 

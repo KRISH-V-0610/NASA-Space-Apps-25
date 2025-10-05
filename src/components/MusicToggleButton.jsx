@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSoundEffect } from "../hooks/useSoundEffect";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
 
 
 const MusicToggleButton = ({

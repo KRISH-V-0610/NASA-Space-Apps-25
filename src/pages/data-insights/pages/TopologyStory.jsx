@@ -11,9 +11,9 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import Map from '../components/Map';
-import TopologyHeroSection from '../components/TopologyHeroSection';
-import BackButton from '../components/BackButton';
+import Map from '../components/Map.jsx';
+import TopologyHeroSection from '../components/TopologyHeroSection.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 // Video Background Component
 const VideoBackground = ({ src, opacity = 30, isActive = true }) => {

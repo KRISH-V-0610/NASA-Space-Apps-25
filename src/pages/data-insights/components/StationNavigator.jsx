@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { Flame, Leaf, Mountain, Cloud, Sun, Zap, ChevronLeft, ChevronRight, Satellite, Activity } from 'lucide-react';
-import LightRays from './LightRays';
+import LightRays from './LightRays.jsx';
 import { useNavigate } from 'react-router-dom';
 
 

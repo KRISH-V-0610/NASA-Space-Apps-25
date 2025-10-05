@@ -1,7 +1,7 @@
 // components/AudioPlayerButton.jsx
 import React, { useRef, useState, useEffect } from "react";
-import { IoPlay, IoPause, IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
-import { useSoundEffect } from "../hooks/useSoundEffect";
+import { IoPlay, IoPause, IoVolumeHigh, IoVolumeMute } from "react-icons/io5.jsx";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
 
 export default function AudioPlayerButton({ 
   audioSrc = "/music/bgmusic.mp3",
