@@ -1,7 +1,7 @@
 // components/AstronautButton.jsx
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import AstronautModel from "./3DModels/AstronautModel.jsx";
+import AstronautModel from "./3Dmodels/AstronautModel.jsx";
 
 
 export default function AstronautButton({ 

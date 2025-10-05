@@ -4,9 +4,9 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import EarthModel from "../components/3DModels/EarthModel.jsx";
-import TerraSatellite from "../components/3DModels/TerraSatellite.jsx";
-import OrbitPath from "../components/3DModels/OrbitPath.jsx";
+import EarthModel from "../components/3Dmodels/EarthModel.jsx";
+import TerraSatellite from "../components/3Dmodels/TerraSatellite.jsx";
+import OrbitPath from "../components/3Dmodels/OrbitPath.jsx";
 import AstronautButton from "../components/AstronautButton.jsx";
 import AudioPlayerButton from "../components/AudioPlayerButton.jsx"; // NEW IMPORT
 import ChatbotInterface from "../components/ChatbotInterface.jsx";
