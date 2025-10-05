@@ -15,7 +15,7 @@ import ModisPage from './pages/ModisPage';
 // Import new navigation pages
 import AboutPage from './pages/AboutPage';
 import DataInsightsPage from './pages/DataInsightsPage';
-import EventPage from './pages/EventPage';
+import EventPage from './pages/events/EventPage';
 import CatalogPage from './pages/catalog/CatalogPage';
 
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {

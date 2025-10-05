@@ -62,7 +62,7 @@ export default function Sidebar({ item, onOpenFull }) {
   }
 
   return (
-    <div className="glass sticky top-20 max-h-[calc(100vh-120px)] overflow-auto rounded-2xl p-6 shadow-glow">
+    <div className="glass sticky top-20 max-h-[calc(100vh-120px)] overflow-auto rounded-2xl p-6 shadow-glow scrollbar-hidden">
       <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-300">AI Summary & Description</h3>
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-xl font-semibold leading-tight text-slate-100">{toTitle(item.filename)}</h2>
