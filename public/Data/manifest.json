@@ -1,0 +1,79 @@
+[
+  {
+    "filename": "aerosol_timeseries.gif",
+    "url": "/Data/aerosol_timeseries.gif",
+    "type": "gif",
+    "bytes": 5502210,
+    "tags": [
+      "aerosol",
+      "timeseries"
+    ]
+  },
+  {
+    "filename": "albedo_timeseries.gif",
+    "url": "/Data/albedo_timeseries.gif",
+    "type": "gif",
+    "bytes": 1585314,
+    "tags": [
+      "albedo",
+      "timeseries"
+    ]
+  },
+  {
+    "filename": "cloud_timeseries.gif",
+    "url": "/Data/cloud_timeseries.gif",
+    "type": "gif",
+    "bytes": 6393491,
+    "tags": [
+      "cloud",
+      "timeseries"
+    ]
+  },
+  {
+    "filename": "cloud_wind_timeseries.gif",
+    "url": "/Data/cloud_wind_timeseries.gif",
+    "type": "gif",
+    "bytes": 3309855,
+    "tags": [
+      "cloud",
+      "wind",
+      "timeseries"
+    ]
+  },
+  {
+    "filename": "ndvi_timeseries.gif",
+    "url": "/Data/ndvi_timeseries.gif",
+    "type": "gif",
+    "bytes": 2626710,
+    "tags": [
+      "ndvi",
+      "timeseries"
+    ]
+  },
+  {
+    "filename": "toa_lw_all_mon_animation.gif",
+    "url": "/Data/toa_lw_all_mon_animation.gif",
+    "type": "gif",
+    "bytes": 1913040,
+    "tags": [
+      "toa",
+      "lw",
+      "all",
+      "mon",
+      "animation"
+    ]
+  },
+  {
+    "filename": "toa_sw_all_mon_animation.gif",
+    "url": "/Data/toa_sw_all_mon_animation.gif",
+    "type": "gif",
+    "bytes": 1814750,
+    "tags": [
+      "toa",
+      "sw",
+      "all",
+      "mon",
+      "animation"
+    ]
+  }
+]
