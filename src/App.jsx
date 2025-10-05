@@ -15,7 +15,8 @@ import ModisPage from './pages/ModisPage';
 // Import new navigation pages
 import AboutPage from './pages/AboutPage';
 import DataInsightsPage from './pages/DataInsightsPage';
-import ExplorePage from './pages/ExplorePage';
+import EventPage from './pages/EventPage';
+import CatalogPage from './pages/catalog/CatalogPage';
 
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
   const location = useLocation();
@@ -38,7 +39,8 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
         {/* Navigation Pages */}
         <Route path="/terra25/about" element={<AboutPage />} />
         <Route path="/terra25/data-insights" element={<DataInsightsPage />} />
-        <Route path="/terra25/explore" element={<ExplorePage />} />
+        <Route path="/terra25/events" element={<EventPage />} />
+        <Route path="/terra25/catalog" element={<CatalogPage />} />
 
         {/* Instrument Detail Pages */} 
         <Route path="/terra-details/modis" element={<ModisPage />} />

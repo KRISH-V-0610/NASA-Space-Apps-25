@@ -59,6 +59,59 @@
 }
 
 
+
+/* Custom range slider styling */
+.slider-white {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.slider-white::-webkit-slider-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  height: 0.375rem;
+}
+
+.slider-white::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.slider-white::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.slider-white::-moz-range-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  height: 0.375rem;
+}
+
+.slider-white::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.slider-white::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+
 /* Ensure text is always visible */
 .nav-button span {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
