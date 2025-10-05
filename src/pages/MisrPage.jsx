@@ -14,9 +14,9 @@ export default function MisrPage() {
 
   // MISR-specific slideshow images
   const slideshowImages = [
-    "/TERRA-DETAILS/MISR/misr_multiple_angles.jpg",
-    "/TERRA-DETAILS/MISR/misr_aerosol_view.jpg",
-    "/TERRA-DETAILS/MISR/misr_cloud_height.jpg"
+    "/TERRA-DETAILS/MISR/image.png",
+    // "/TERRA-DETAILS/MISR/misr_aerosol_view.jpg",
+    // "/TERRA-DETAILS/MISR/misr_cloud_height.jpg"
   ];
 
   const sections = [
@@ -169,25 +169,6 @@ export default function MisrPage() {
               <h2 className="text-4xl font-bold text-white">Revolutionary Multi-Angle Imaging</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149063/misr_9cameras_lrg.jpg"
-                  alt="MISR Nine Camera Array"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149127/misr_angles_diagram_lrg.jpg"
-                  alt="MISR Viewing Angles"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 MISR features nine separate cameras viewing Earth at different angles (0°, ±26.1°, ±45.6°, ±60.0°, ±70.5°), 
@@ -209,17 +190,6 @@ export default function MisrPage() {
             <div className="flex items-center gap-3 mb-6">
               <IoCloud className="text-3xl text-emerald-400" />
               <h2 className="text-4xl font-bold text-white">Atmospheric Aerosol Research</h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149285/misr_aerosol_global_lrg.jpg"
-                  alt="Global Aerosol Monitoring"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
             </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
@@ -245,17 +215,6 @@ export default function MisrPage() {
               <h2 className="text-4xl font-bold text-white">Vegetation Structure Analysis</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149422/misr_vegetation_structure_lrg.jpg"
-                  alt="Vegetation Structure Mapping"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 By observing vegetation from multiple angles, MISR captures information about canopy structure, 
@@ -277,17 +236,6 @@ export default function MisrPage() {
             <div className="flex items-center gap-3 mb-6">
               <IoAnalytics className="text-3xl text-emerald-400" />
               <h2 className="text-4xl font-bold text-white">Climate Change Research</h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149188/misr_cloud_heights_lrg.jpg"
-                  alt="Cloud Height Measurements"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
             </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">

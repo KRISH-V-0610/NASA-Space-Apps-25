@@ -12,11 +12,26 @@ import CeresPage from './pages/CeresPage';
 import AsterPage from './pages/AsterPage';
 import ModisPage from './pages/ModisPage';
 
+
 // Import new navigation pages
 import AboutPage from './pages/AboutPage';
-import DataInsightsPage from './pages/DataInsightsPage';
+import DataInsightsPage from './pages/data-insights/DataInsightsPage.jsx';
 import EventPage from './pages/events/EventPage';
 import CatalogPage from './pages/catalog/CatalogPage';
+
+
+
+// Data Insights child pages
+// import StationNavigator from './pages/data-insights/components/StationNavigator.jsx';
+
+// import PrismaticBurst from './pages/data-insights/components/PrismaticBurst';
+import SurfaceTemp from './pages/data-insights/components/SurfaceTemp';
+
+import WildfireStory from './pages/data-insights/pages/WildfireStory';
+import SurfaceTempPage from './pages/data-insights/pages/SurfaceTempPage';
+import PollutionPage from './pages/data-insights/pages/PollutionPage';
+import DeforestationStory from './pages/data-insights/pages/DeforestationStory';
+import TopologyStory from './pages/data-insights/pages/TopologyStory.jsx';
 
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
   const location = useLocation();
@@ -48,6 +63,25 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
         <Route path="/terra-details/misr" element={<MisrPage />} />
         <Route path="/terra-details/ceres" element={<CeresPage />} />
         <Route path="/terra-details/mopitt" element={<MopittPage />} /> 
+
+
+            {/* 📊 Data Insights (merged from DataInsightsPage.jsx) */}
+        <Route path="/terra25/data-insights/wildfire" element={<WildfireStory />} />
+        <Route path="/terra25/data-insights/surface-temp" element={<SurfaceTemp />} />
+        <Route path="/terra25/data-insights/surface-temp-page" element={<SurfaceTempPage />} />
+        <Route path="/terra25/data-insights/pollution" element={<PollutionPage />} />
+        <Route path="/terra25/data-insights/radiation" element={<TopologyStory />} />
+        
+        <Route path="/terra25/data-insights/deforestation" element={<DeforestationStory />} />
+        <Route path="/terra25/data-insights/:stationId" element={<WildfireStory />} />
+
+
+        <Route path="/terra25/data-insights/wildfire" element={<WildfireStory />} />
+        <Route path="/terra25/data-insights/ndvi" element={<DeforestationStory />} />
+        <Route path="/terra25/data-insights/aster" element={<SurfaceTempPage />} />
+        <Route path="/terra25/data-insights/aerosol" element={<PollutionPage />} />
+        <Route path="/cloud" element={<SurfaceTemp />} />
+
       </Routes>
 
       {/* Global Music Toggle Button - show on terra25 and terra-details pages */}

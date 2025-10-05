@@ -41,10 +41,6 @@ export default function EventDetails({ year, events, selectedEvent, onSelect }) 
           </div>
           <p className="text-white/90 text-sm leading-relaxed">{selectedEvent.summary}</p>
         </div>
-
-        <div className="text-white/50 text-xs pt-2 border-t border-white/10">
-          Source: {selectedEvent.source}
-        </div>
       </div>
     )
   }
@@ -59,6 +55,7 @@ export default function EventDetails({ year, events, selectedEvent, onSelect }) 
       </div>
       
       <div className="space-y-4">
+ 
         {gallery.length === 0 && (
           <div className="text-center py-12 text-white/40">
             <p className="text-lg">No events for current filters.</p>

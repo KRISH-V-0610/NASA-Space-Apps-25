@@ -169,25 +169,6 @@ export default function ModisPage() {
               <h2 className="text-4xl font-bold text-white">Wildfire Detection and Monitoring</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/153000/153334/greece_oli2_2024244_lrg.jpg"
-                  alt="MODIS Wildfire Detection"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/153000/153205/canada_tmo_2024223_lrg.jpg"
-                  alt="Fire Monitoring System"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 MODIS detects thermal anomalies for near-real-time wildfire tracking. This helps communities respond quickly to fires,
@@ -210,16 +191,6 @@ export default function ModisPage() {
               <h2 className="text-4xl font-bold text-white">Agricultural Monitoring and Food Security</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/153000/153416/nebraska_oli2_2024248_lrg.jpg"
-                  alt="Agricultural Monitoring"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -243,17 +214,6 @@ export default function ModisPage() {
               <h2 className="text-4xl font-bold text-white">Air Quality and Atmospheric Studies</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/153000/153407/sahara_tmo_2024249_lrg.jpg"
-                  alt="Air Quality Monitoring"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 MODIS measures aerosol optical depth and other atmospheric parameters to monitor air pollution. Communities benefit
@@ -274,17 +234,6 @@ export default function ModisPage() {
             <div className="flex items-center gap-3 mb-6">
               <IoWater className="text-3xl text-blue-400" />
               <h2 className="text-4xl font-bold text-white">Ocean and Coastal Ecosystem Monitoring</h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/153000/153259/blacksea_tmo_2024226_lrg.jpg"
-                  alt="Ocean Monitoring"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
             </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">

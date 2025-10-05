@@ -188,7 +188,7 @@ export default function AdvancedControlPanel({
           <button
             onClick={() => {
               clickSound.play();
-              setOrbitTilt(30);
+              setOrbitTilt(90);
               setAutoRotate(true);
               setEarthRotation(true);
               setOrbitSpeed(0.002);

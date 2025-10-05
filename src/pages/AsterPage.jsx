@@ -14,9 +14,7 @@ export default function AsterPage() {
 
   // ASTER-specific slideshow images
   const slideshowImages = [
-    "/TERRA-DETAILS/ASTER/aster_global_dem.jpg",
-    "/TERRA-DETAILS/ASTER/aster_volcano_monitoring.jpg",
-    "/TERRA-DETAILS/ASTER/aster_urban_heat.jpg"
+    "/TERRA-DETAILS/ASTER/Picture1.jpg",
   ];
 
   const sections = [
@@ -169,24 +167,6 @@ export default function AsterPage() {
               <h2 className="text-4xl font-bold text-white">Global Digital Elevation Mapping</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149063/aster_gdem_global_lrg.jpg"
-                  alt="ASTER Global DEM"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149127/aster_stereo_pair_lrg.jpg"
-                  alt="ASTER Stereo Imaging"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -211,16 +191,7 @@ export default function AsterPage() {
               <h2 className="text-4xl font-bold text-white">Thermal Anomaly Detection</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149285/aster_thermal_anomaly_lrg.jpg"
-                  alt="Thermal Anomaly Detection"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
+
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -245,16 +216,6 @@ export default function AsterPage() {
               <h2 className="text-4xl font-bold text-white">Mineral and Geological Mapping</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149422/aster_mineral_mapping_lrg.jpg"
-                  alt="Mineral Mapping"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -279,16 +240,7 @@ export default function AsterPage() {
               <h2 className="text-4xl font-bold text-white">Urban Climate and Environmental Studies</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149188/aster_urban_heat_lrg.jpg"
-                  alt="Urban Heat Island Monitoring"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
+
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">

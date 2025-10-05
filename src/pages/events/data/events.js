@@ -54,7 +54,6 @@ const mk = (id, { type, title, year, lat, lng, region, imageSeed, summary, nasaI
   region,
   image: nasaImage || `https://picsum.photos/seed/${encodeURIComponent(imageSeed || title)}/800/450`,
   summary,
-  source: 'Dummy TERRA-like dataset (hackathon demo)',
   emoji: typeToEmoji[type],
 })
 

@@ -14,9 +14,7 @@ export default function MopittPage() {
 
   // MOPITT-specific slideshow images
   const slideshowImages = [
-    "/TERRA-DETAILS/MOPITT/mopitt_global_co.jpg",
-    "/TERRA-DETAILS/MOPITT/mopitt_wildfire_tracking.jpg",
-    "/TERRA-DETAILS/MOPITT/mopitt_pollution_transport.jpg"
+    "/TERRA-DETAILS/MOPITT/Picture2.jpg",
   ];
 
   const sections = [
@@ -170,25 +168,6 @@ export default function MopittPage() {
               <h2 className="text-4xl font-bold text-white">Revolutionary Gas Correlation Technology</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://terra.nasa.gov/sites/default/files/styles/medium/public/2024-07/MOPITT_0.jpg"
-                  alt="MOPITT Instrument Design"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://mopitt.physics.utoronto.ca/wp-content/uploads/2023/10/mopitt_diagram.png"
-                  alt="MOPITT Optical System"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 MOPITT employs sophisticated gas correlation spectroscopy, using onboard containers of carbon monoxide 
@@ -223,16 +202,6 @@ export default function MopittPage() {
               <h2 className="text-4xl font-bold text-white">Wildfire Emission Monitoring</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149285/mopitt_co_wildfires_lrg.jpg"
-                  alt="Wildfire CO Emissions Tracking"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -259,16 +228,6 @@ export default function MopittPage() {
               <h2 className="text-4xl font-bold text-white">Global Pollution Transport Patterns</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149334/mopitt_global_transport_lrg.jpg"
-                  alt="Global Pollution Transport"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -295,16 +254,7 @@ export default function MopittPage() {
               <h2 className="text-4xl font-bold text-white">Climate Research and Policy Impact</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://eoimages.gsfc.nasa.gov/images/imagerecords/149000/149188/mopitt_climate_studies_lrg.jpg"
-                  alt="Climate Impact Research"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
+        
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">

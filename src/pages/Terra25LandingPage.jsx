@@ -47,7 +47,7 @@ export default function Terra25Page() {
   const backButtonRef = useRef(null);
 
   // Control panel states
-  const [orbitTilt, setOrbitTilt] = useState(0);
+  const [orbitTilt, setOrbitTilt] = useState(90);
   const [autoRotate, setAutoRotate] = useState(true);
   const [earthRotation, setEarthRotation] = useState(true);
   const [orbitSpeed, setOrbitSpeed] = useState(0.002);

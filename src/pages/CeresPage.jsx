@@ -14,9 +14,7 @@ export default function CeresPage() {
 
   // CERES-specific slideshow images
   const slideshowImages = [
-    "/TERRA-DETAILS/CERES/ceres_earth_energy.jpg",
-    "/TERRA-DETAILS/CERES/ceres_cloud_effects.jpg", 
-    "/TERRA-DETAILS/CERES/ceres_radiation_measurements.jpg"
+    "/TERRA-DETAILS/CERES/ceres_olr_science_lrg.jpg",
   ];
 
   const sections = [
@@ -169,25 +167,6 @@ export default function CeresPage() {
               <h2 className="text-4xl font-bold text-white">Advanced Radiometer Technology</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_instrument_diagram.jpg"
-                  alt="CERES Instrument Design"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_calibration_system.jpg"
-                  alt="CERES Calibration System"
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 Each CERES instrument is a narrow field-of-view scanning radiometer that measures broadband radiances 
@@ -222,17 +201,6 @@ export default function CeresPage() {
               <h2 className="text-4xl font-bold text-white">Earth's Radiation Budget Monitoring</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_energy_balance.jpg"
-                  alt="Earth's Energy Balance"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
                 CERES provides continuous monitoring of Earth's Energy Imbalance (EEI), the crucial difference between 
@@ -258,16 +226,6 @@ export default function CeresPage() {
               <h2 className="text-4xl font-bold text-white">Cloud-Radiation Interactions</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_cloud_effects.jpg"
-                  alt="Cloud Radiation Effects"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">
@@ -294,16 +252,6 @@ export default function CeresPage() {
               <h2 className="text-4xl font-bold text-white">Climate Change Research and Policy Impact</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mb-6">
-              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
-                <img
-                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_climate_record.jpg"
-                  alt="Long-term Climate Record"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
 
             <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
               <p className="text-white/90 leading-relaxed mb-4">

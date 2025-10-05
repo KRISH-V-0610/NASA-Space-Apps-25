@@ -20,7 +20,7 @@ html, body, #root {
     radial-gradient(40% 60% at 20% 90%, rgba(40,200,160,0.10), transparent 60%),
     linear-gradient(180deg, #081123 0%, #0b1220 40%, #0a1222 100%);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .app-shell { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }

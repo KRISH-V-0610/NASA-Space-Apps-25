@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  overflow-y: scroll; /* Force scrollbar to always show */
+}
+
+/*  */
+
+
+
+
 @font-face {
   font-family: "MyCustomFont";
   src: url("/fonts/SukajanBrushDemoRegular-q2Mmx.otf") format("opentype");
@@ -379,3 +395,53 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 3px;
 }
+
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fb923c;
+}
+
+/* Smooth transitions for all elements */
+/* * {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+} */
+
+/* Custom gradient background animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+} */
