@@ -1,5 +1,5 @@
 import { IoArrowBack } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom.jsx'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header({ stats }) {
 
