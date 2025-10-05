@@ -1,23 +1,23 @@
 // src/App.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import VideoBackground from './pages/IntroPage';
-import Terra25Page from './pages/Terra25LandingPage';
-import TerraDetailsPage from './pages/TerraDetailsPage';
-import MusicToggleButton from './components/MusicToggleButton';
+import VideoBackground from './pages/IntroPage.jsx';
+import Terra25Page from './pages/Terra25LandingPage.jsx';
+import TerraDetailsPage from './pages/TerraDetailsPage.jsx';
+import MusicToggleButton from './components/MusicToggleButton.jsx';
 
-import MisrPage from './pages/MisrPage';
-import MopittPage from './pages/MopittPage';
-import CeresPage from './pages/CeresPage';
-import AsterPage from './pages/AsterPage';
-import ModisPage from './pages/ModisPage';
+import MisrPage from './pages/MisrPage.jsx';
+import MopittPage from './pages/MopittPage.jsx';
+import CeresPage from './pages/CeresPage.jsx';
+import AsterPage from './pages/AsterPage.jsx';
+import ModisPage from './pages/ModisPage.jsx';
 
 
 // Import new navigation pages
-import AboutPage from './pages/AboutPage';
+import AboutPage from './pages/AboutPage.jsx';
 import DataInsightsPage from './pages/data-insights/DataInsightsPage.jsx';
-import EventPage from './pages/events/EventPage';
-import CatalogPage from './pages/catalog/CatalogPage';
+import EventPage from './pages/events/EventPage.jsx';
+import CatalogPage from './pages/catalog/CatalogPage.jsx';
 
 
 
@@ -25,12 +25,12 @@ import CatalogPage from './pages/catalog/CatalogPage';
 // import StationNavigator from './pages/data-insights/components/StationNavigator.jsx';
 
 // import PrismaticBurst from './pages/data-insights/components/PrismaticBurst';
-import SurfaceTemp from './pages/data-insights/components/SurfaceTemp';
+import SurfaceTemp from './pages/data-insights/components/SurfaceTemp.jsx';
 
-import WildfireStory from './pages/data-insights/pages/WildfireStory';
-import SurfaceTempPage from './pages/data-insights/pages/SurfaceTempPage';
-import PollutionPage from './pages/data-insights/pages/PollutionPage';
-import DeforestationStory from './pages/data-insights/pages/DeforestationStory';
+import WildfireStory from './pages/data-insights/pages/WildfireStory.jsx';
+import SurfaceTempPage from './pages/data-insights/pages/SurfaceTempPage.jsx';
+import PollutionPage from './pages/data-insights/pages/PollutionPage.jsx';
+import DeforestationStory from './pages/data-insights/pages/DeforestationStory.jsx';
 import TopologyStory from './pages/data-insights/pages/TopologyStory.jsx';
 
 const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {

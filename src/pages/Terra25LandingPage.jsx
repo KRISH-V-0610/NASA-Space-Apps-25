@@ -4,17 +4,17 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import EarthModel from "../components/3DModels/EarthModel";
-import TerraSatellite from "../components/3DModels/TerraSatellite";
-import OrbitPath from "../components/3DModels/OrbitPath";
-import AstronautButton from "../components/AstronautButton";
-import AudioPlayerButton from "../components/AudioPlayerButton"; // NEW IMPORT
-import ChatbotInterface from "../components/ChatbotInterface";
-import AdvancedControlPanel from "../components/AdvancedControlPanel";
-import VideoLoadingScreen from "../components/VideoLoadingScreen";
-import NavigationHeader from "../components/NavigationHeader";
-import { IoArrowBack } from "react-icons/io5";
-import { useSoundEffect } from "../hooks/useSoundEffect";
+import EarthModel from "../components/3DModels/EarthModel.jsx";
+import TerraSatellite from "../components/3DModels/TerraSatellite.jsx";
+import OrbitPath from "../components/3DModels/OrbitPath.jsx";
+import AstronautButton from "../components/AstronautButton.jsx";
+import AudioPlayerButton from "../components/AudioPlayerButton.jsx"; // NEW IMPORT
+import ChatbotInterface from "../components/ChatbotInterface.jsx";
+import AdvancedControlPanel from "../components/AdvancedControlPanel.jsx";
+import VideoLoadingScreen from "../components/VideoLoadingScreen.jsx";
+import NavigationHeader from "../components/NavigationHeader.jsx";
+import { IoArrowBack } from "react-icons/io5.jsx";
+import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
 
 // Camera controller to zoom to satellite position
 function CameraZoomController({ satellitePosition, shouldZoom, onZoomComplete }) {
