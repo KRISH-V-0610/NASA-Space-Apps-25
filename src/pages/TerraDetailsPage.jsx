@@ -10,7 +10,7 @@ import AudioPlayerButton from "../components/AudioPlayerButton.jsx"; // NEW IMPO
 import AstronautButton from "../components/AstronautButton.jsx"; // NEW IMPORT
 import ChatbotInterface from "../components/ChatbotInterface.jsx"; // NEW IMPORT
 import * as THREE from "three";
-import { IoArrowBack } from "react-icons/io5.jsx";
+import { IoArrowBack } from "react-icons/io5";
 
 // ... (keep all your existing functions: DetailedTerraSatellite, InstrumentLabel, Loader, SatelliteControlPanel)
 

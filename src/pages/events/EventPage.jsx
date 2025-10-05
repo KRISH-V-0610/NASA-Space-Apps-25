@@ -7,7 +7,7 @@ import EVENTS, { EVENT_TYPES } from './data/events.js'
 import './styles.css'
 import { useNavigate } from "react-router-dom";
 import { useSoundEffect } from "../../hooks/useSoundEffect.jsx";
-import { IoArrowBack } from "react-icons/io5.jsx";
+import { IoArrowBack } from "react-icons/io5";
 
 
 

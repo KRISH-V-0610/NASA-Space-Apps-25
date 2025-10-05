@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { IoArrowBack, IoFlame, IoLeaf, IoCloudOutline, IoWater } from "react-icons/io5.jsx";
+import { IoArrowBack, IoFlame, IoLeaf, IoCloudOutline, IoWater } from "react-icons/io5";
 import AudioPlayerButton from "../components/AudioPlayerButton.jsx";
 
 export default function ModisPage() {

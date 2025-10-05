@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { IoArrowBack, IoEye, IoCloud, IoLeaf, IoAnalytics } from "react-icons/io5.jsx";
+import { IoArrowBack, IoEye, IoCloud, IoLeaf, IoAnalytics } from "react-icons/io5";
 import AudioPlayerButton from "../components/AudioPlayerButton.jsx";
 
 

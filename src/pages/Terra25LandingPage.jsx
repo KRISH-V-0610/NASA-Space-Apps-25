@@ -13,7 +13,7 @@ import ChatbotInterface from "../components/ChatbotInterface.jsx";
 import AdvancedControlPanel from "../components/AdvancedControlPanel.jsx";
 import VideoLoadingScreen from "../components/VideoLoadingScreen.jsx";
 import NavigationHeader from "../components/NavigationHeader.jsx";
-import { IoArrowBack } from "react-icons/io5.jsx";
+import { IoArrowBack } from "react-icons/io5";
 import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
 
 // Camera controller to zoom to satellite position

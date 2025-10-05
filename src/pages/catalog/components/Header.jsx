@@ -1,4 +1,4 @@
-import { IoArrowBack } from 'react-icons/io5.jsx'
+import { IoArrowBack } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom.jsx'
 
 export default function Header({ stats }) {

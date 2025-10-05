@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { useSoundEffect } from "../hooks/useSoundEffect.jsx";
-import { IoArrowBack } from "react-icons/io5.jsx";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function AboutPage() {
   const navigate = useNavigate();
