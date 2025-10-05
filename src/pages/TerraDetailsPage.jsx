@@ -6,8 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { useSoundEffect } from "../hooks/useSoundEffect";
 import SimpleReloadLoader from "../components/SimpleReloadLoader";
+import AudioPlayerButton from "../components/AudioPlayerButton"; // NEW IMPORT
+import AstronautButton from "../components/AstronautButton"; // NEW IMPORT
+import ChatbotInterface from "../components/ChatbotInterface"; // NEW IMPORT
 import * as THREE from "three";
+import { IoArrowBack } from "react-icons/io5";
 
+// ... (keep all your existing functions: DetailedTerraSatellite, InstrumentLabel, Loader, SatelliteControlPanel)
 
 function DetailedTerraSatellite({ terraRef, onPositioned }) {
   const { scene } = useGLTF("/3Dmodels/terra2.glb");
@@ -16,8 +21,6 @@ function DetailedTerraSatellite({ terraRef, onPositioned }) {
 
   useFrame(() => {
     frameCount.current++;
-    
-    // After 3 frames, the satellite should be properly positioned
     if (frameCount.current === 3 && !hasReportedReady && onPositioned) {
       setHasReportedReady(true);
       onPositioned();
@@ -28,7 +31,6 @@ function DetailedTerraSatellite({ terraRef, onPositioned }) {
 }
 
 function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavigate }) {
-
   const navigate = useNavigate();
   const labelRef = useRef();
   const groupRef = useRef();
@@ -59,7 +61,6 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
       const toCamera = camera.position.clone().sub(satellitePos).normalize();
       const dotProduct = toInstrument.dot(toCamera);
 
-      // Less aggressive fading - min opacity 0.35 instead of 0.1
       const newOpacity = THREE.MathUtils.clamp(
         THREE.MathUtils.mapLinear(dotProduct, -0.3, 0.4, 0.35, 1),
         0.35,
@@ -83,27 +84,16 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
 
   return (
     <group ref={groupRef} position={anchorPosition}>
-      {/* Glowing dot at instrument location */}
       <mesh>
         <sphereGeometry args={[0.045, 20, 20]} />
-        <meshBasicMaterial
-          color={color}
-          transparent
-          opacity={opacity}
-        />
+        <meshBasicMaterial color={color} transparent opacity={opacity} />
       </mesh>
 
-      {/* Outer glow ring */}
       <mesh>
         <sphereGeometry args={[0.07, 20, 20]} />
-        <meshBasicMaterial
-          color={color}
-          transparent
-          opacity={opacity * 0.25}
-        />
+        <meshBasicMaterial color={color} transparent opacity={opacity * 0.25} />
       </mesh>
 
-      {/* Curved line from instrument to label */}
       <Line
         points={[
           [0, 0, 0],
@@ -118,7 +108,6 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
         dashed={false}
       />
 
-      {/* Clickable Label Button */}
       <Html position={labelOffset} center distanceFactor={6}>
         <button
           ref={labelRef}
@@ -134,9 +123,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
           <div
             className="relative px-6 py-3 transition-all duration-300"
             style={{
-              background: isHovered
-                ? 'rgba(0, 0, 0, 0.95)'
-                : 'rgba(0, 0, 0, 0.88)',
+              background: isHovered ? 'rgba(0, 0, 0, 0.95)' : 'rgba(0, 0, 0, 0.88)',
               backdropFilter: 'blur(16px)',
               border: `2px solid ${color}`,
               borderRadius: '10px',
@@ -147,23 +134,15 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
               textAlign: 'center'
             }}
           >
-            {/* Animated corner accents */}
             <span
               className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 transition-all duration-300"
-              style={{
-                borderColor: color,
-                opacity: isHovered ? 1 : 0.5
-              }}
+              style={{ borderColor: color, opacity: isHovered ? 1 : 0.5 }}
             />
             <span
               className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 transition-all duration-300"
-              style={{
-                borderColor: color,
-                opacity: isHovered ? 1 : 0.5
-              }}
+              style={{ borderColor: color, opacity: isHovered ? 1 : 0.5 }}
             />
 
-            {/* Label Text */}
             <p
               className="font-custom3 font-bold text-xl tracking-widest transition-all duration-300"
               style={{
@@ -176,28 +155,18 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
               {name}
             </p>
 
-            {/* Hover indicator arrow */}
             {isHovered && (
               <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  style={{ fill: color }}
-                >
+                <svg width="16" height="16" viewBox="0 0 16 16" style={{ fill: color }}>
                   <path d="M6 3l5 5-5 5V3z" />
                 </svg>
               </div>
             )}
 
-            {/* Pulse effect on hover */}
             {isHovered && (
               <div
                 className="absolute inset-0 rounded-lg animate-ping"
-                style={{
-                  border: `1px solid ${color}`,
-                  opacity: 0.3
-                }}
+                style={{ border: `1px solid ${color}`, opacity: 0.3 }}
               />
             )}
           </div>
@@ -208,7 +177,7 @@ function InstrumentLabel({ name, color, delay, anchorPosition, parentRef, onNavi
 }
 
 function Loader() {
-  return null; // Remove the blue loader, use Suspense fallback instead
+  return null;
 }
 
 function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setLightIntensity }) {
@@ -247,7 +216,6 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
       ref={panelRef}
       className="cursor-target absolute top-6 right-6 bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl transition-all duration-300 hover:border-cyan-400/30 z-50"
     >
-      {/* Header */}
       <button onClick={togglePanel} className="w-full px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -265,10 +233,8 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
         </svg>
       </button>
 
-      {/* Expandable Content */}
       <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
         <div className="px-6 pb-6 space-y-5 border-t border-white/5 pt-5">
-          {/* Auto Rotate Toggle */}
           <div className="flex items-center justify-between py-2">
             <label className="font-custom3 text-white/70 text-xs tracking-wider font-medium">
               Auto Rotate View
@@ -286,7 +252,6 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
             </button>
           </div>
 
-          {/* Light Intensity */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="font-custom3 text-white/70 text-xs tracking-wider font-medium">
@@ -305,7 +270,6 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
             />
           </div>
 
-          {/* Reset Button */}
           <button
             onClick={() => {
               clickSound.play();
@@ -319,7 +283,6 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
         </div>
       </div>
 
-      {/* Corner Accents */}
       <span className="absolute top-0 left-0 w-3 h-3 border-t border-l border-cyan-400/30" />
       <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-cyan-400/30" />
     </div>
@@ -327,63 +290,39 @@ function SatelliteControlPanel({ autoRotate, setAutoRotate, lightIntensity, setL
 }
 
 export default function TerraDetailsPage() {
+  const navigate = useNavigate();
+  const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
   const [autoRotate, setAutoRotate] = useState(true);
   const [lightIntensity, setLightIntensity] = useState(2.0);
   const terraRef = useRef();
   const [satelliteReady, setSatelliteReady] = useState(false);
   const [isReloading, setIsReloading] = useState(false);
+  
+  // NEW: Chatbot state
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [currentAnimation, setCurrentAnimation] = useState(3);
+  const prevAnimationRef = useRef(currentAnimation);
 
-  // Auto-reload logic on first mount from navigation
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const hasReloaded = urlParams.get('reloaded');
-    
+
     if (!hasReloaded) {
-      // Mark that we're about to reload by adding query param
       setIsReloading(true);
-      
-      // Small delay to show loader, then reload with param
       setTimeout(() => {
         window.location.href = window.location.pathname + '?reloaded=true';
       }, 300);
     }
   }, []);
 
-  // All instruments use white color
   const whiteColor = "#ffffff";
 
-  // Instrument positions based on actual Terra satellite anatomy
   const instruments = [
-    {
-      name: "MODIS",
-      anchorPosition: [-0.55, -0.15, -0.25],
-      color: whiteColor,
-      delay: 0.5
-    },
-    {
-      name: "ASTER",
-      anchorPosition: [0.02, -0.35, -0.30],
-      color: whiteColor,
-      delay: 0.7
-    },
-    {
-      name: "MISR",
-      anchorPosition: [-0.15, -0.4, 0.01],
-      color: whiteColor,
-      delay: 0.9
-    },
-    {
-      name: "CERES",
-      anchorPosition: [0.4, -0.30, -0.15],
-      color: whiteColor,
-      delay: 1.1
-    },
-    {
-      name: "MOPITT",
-      anchorPosition: [0.25, -0.35, -0.30],
-      color: whiteColor,
-      delay: 1.3
-    },
+    { name: "MODIS", anchorPosition: [-0.55, -0.15, -0.25], color: whiteColor, delay: 0.5 },
+    { name: "ASTER", anchorPosition: [0.02, -0.35, -0.30], color: whiteColor, delay: 0.7 },
+    { name: "MISR", anchorPosition: [-0.15, -0.4, 0.01], color: whiteColor, delay: 0.9 },
+    { name: "CERES", anchorPosition: [0.4, -0.30, -0.15], color: whiteColor, delay: 1.1 },
+    { name: "MOPITT", anchorPosition: [0.25, -0.35, -0.30], color: whiteColor, delay: 1.3 },
   ];
 
   const handleSatellitePositioned = () => {
@@ -391,22 +330,44 @@ export default function TerraDetailsPage() {
     setSatelliteReady(true);
   };
 
-  // Show reload loader during reload
+  const handleBackClick = async () => {
+    await clickSound.play();
+    navigate("/terra25");
+  };
+
+  // NEW: Chat toggle handler
+  const handleChatToggle = async () => {
+    await clickSound.play();
+    if (!isChatOpen) {
+      prevAnimationRef.current = currentAnimation;
+      setCurrentAnimation(1);
+    } else {
+      setCurrentAnimation(prevAnimationRef.current);
+    }
+    setIsChatOpen(!isChatOpen);
+  };
+
   if (isReloading) {
     return <SimpleReloadLoader />;
   }
 
   return (
-    <div className="w-screen h-screen relative bg-black">
-      {/* Title */}
+    <div className="font-custom3 w-screen h-screen relative bg-black">
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-50">
         <h1 className="text-4xl font-custom3 text-white tracking-wider text-center drop-shadow-lg">
           TERRA SATELLITE
         </h1>
-        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mt-3" />
+        <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mt-3" />
       </div>
 
-      {/* Control Panel */}
+      <button
+        onClick={handleBackClick}
+        className="cursor-target fixed top-6 left-6 z-50 px-5 py-3 border-2 border-white/60 bg-black/20 backdrop-blur-md hover:border-white hover:bg-black/80 transition-all duration-300 shadow-lg group flex items-center gap-3"
+      >
+        <IoArrowBack className="text-white text-xl group-hover:scale-110 transition-transform duration-300" />
+        <span className="font-custom3 text-white text-sm tracking-wider font-semibold">Back</span>
+      </button>
+
       <SatelliteControlPanel
         autoRotate={autoRotate}
         setAutoRotate={setAutoRotate}
@@ -439,12 +400,8 @@ export default function TerraDetailsPage() {
 
         <Suspense fallback={<Loader />}>
           <Environment files="/Backgrounds/space2.exr" background blur={0} />
-          <DetailedTerraSatellite 
-            terraRef={terraRef} 
-            onPositioned={handleSatellitePositioned}
-          />
+          <DetailedTerraSatellite terraRef={terraRef} onPositioned={handleSatellitePositioned} />
 
-          {/* Instrument Labels - only render when satellite is ready */}
           {satelliteReady && instruments.map((instrument, index) => (
             <InstrumentLabel
               key={index}
@@ -457,6 +414,30 @@ export default function TerraDetailsPage() {
           ))}
         </Suspense>
       </Canvas>
+
+      {/* NEW: Audio Player and Astronaut Button Container */}
+      <div className="fixed bottom-4 right-2 flex items-end gap-4 z-40">
+        {/* Use a different audio file for this page */}
+        <AudioPlayerButton audioSrc="/music/About.mp3" />
+   <div className="fixed bottom-0 right-12">
+         
+        <AstronautButton
+          currentAnimation={currentAnimation}
+          setCurrentAnimation={setCurrentAnimation}
+          onClick={handleChatToggle}
+        />
+   </div>
+      </div>
+
+      {/* NEW: Chatbot Interface */}
+      <ChatbotInterface
+        isOpen={isChatOpen}
+        onClose={async () => {
+          await clickSound.play();
+          setIsChatOpen(false);
+          setCurrentAnimation(3);
+        }}
+      />
     </div>
   );
 }

@@ -56,7 +56,10 @@ const AppContent = ({ audioRef, isMuted, setIsMuted, audioLoaded }) => {
           onToggle={() => {
             if (isMuted && audioRef.current) {
               audioRef.current.muted = false;
-              audioRef.current.play();
+              audioRef.current.play().catch(() => {
+          // autoplay blocked → require click
+          console.log("Autoplay blocked, waiting for user interaction.");
+        });
               setIsMuted(false);
             } else if (audioRef.current) {
               audioRef.current.muted = true;
@@ -101,6 +104,7 @@ const App = () => {
         loop
         muted={true}
         preload="auto"
+      
       />
 
       <AppContent

@@ -18,7 +18,7 @@ export default function AstronautButton({
       }
       }
       onClick={onClick}
-      className="cursor-target absolute bottom-4 right-2 size-48 overflow-hidden shadow-2xl hover:border-cyan-400/50 transition-all duration-300 group"
+      className="cursor-pointer absolute bottom-4 right-2 size-48 overflow-hidden shadow-2xl hover:border-cyan-400/50 transition-all duration-300 group"
     >
       <Canvas camera={{ position: [0, 0.5, 3], fov: 50 }}>
         <ambientLight intensity={1.5} />

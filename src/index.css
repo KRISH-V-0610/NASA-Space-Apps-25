@@ -54,6 +54,10 @@
 .nav-button:hover::before {
   opacity: 1;
 }
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 
 /* Ensure text is always visible */
 .nav-button span {

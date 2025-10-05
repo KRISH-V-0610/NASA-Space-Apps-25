@@ -16,7 +16,7 @@ export default function NavigationHeader({ teamName = "TEAM TERRA" }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const navItems = [
-    { label: "About", path: "/terra25/about" },
+    { label: "About", path: "/terra-details" },
     { label: "Data Insights", path: "/terra25/data-insights" },
     { label: "Explore", path: "/terra25/explore" }
   ];

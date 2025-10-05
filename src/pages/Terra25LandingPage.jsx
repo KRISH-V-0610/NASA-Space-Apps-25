@@ -8,14 +8,12 @@ import EarthModel from "../components/3DModels/EarthModel";
 import TerraSatellite from "../components/3DModels/TerraSatellite";
 import OrbitPath from "../components/3DModels/OrbitPath";
 import AstronautButton from "../components/AstronautButton";
+import AudioPlayerButton from "../components/AudioPlayerButton"; // NEW IMPORT
 import ChatbotInterface from "../components/ChatbotInterface";
 import AdvancedControlPanel from "../components/AdvancedControlPanel";
 import VideoLoadingScreen from "../components/VideoLoadingScreen";
 import NavigationHeader from "../components/NavigationHeader";
 import { IoArrowBack } from "react-icons/io5";
-
-
-// import SatelliteHintTooltip from "../components/SatelliteHintTooltip";
 import { useSoundEffect } from "../hooks/useSoundEffect";
 
 // Camera controller to zoom to satellite position
@@ -24,10 +22,7 @@ function CameraZoomController({ satellitePosition, shouldZoom, onZoomComplete })
 
   useEffect(() => {
     if (shouldZoom && satellitePosition) {
-      // Calculate direction from satellite to camera
       const direction = camera.position.clone().sub(satellitePosition).normalize();
-
-      // Target position: close to satellite but maintain viewing angle
       const targetPosition = satellitePosition.clone().add(direction.multiplyScalar(2));
 
       gsap.to(camera.position, {
@@ -49,10 +44,7 @@ export default function Terra25Page() {
   const location = useLocation();
   const [currentAnimation, setCurrentAnimation] = useState(3);
   const prevAnimationRef = useRef(currentAnimation);
-
   const backButtonRef = useRef(null);
-
-
 
   // Control panel states
   const [orbitTilt, setOrbitTilt] = useState(0);
@@ -78,14 +70,10 @@ export default function Terra25Page() {
   useEffect(() => {
     if (location.state?.showLoadingOverlay) {
       setShowLoading(true);
-      // Generate random delay 3-5 seconds
       const minDelay = 3000 + Math.random() * 2000;
       minLoadingDurationRef.current = minDelay;
       loadingStartTimeRef.current = Date.now();
 
-      console.log(`Loading overlay will display for ${(minDelay / 1000).toFixed(1)} seconds`);
-
-      // Simulate progress over the delay period
       const interval = setInterval(() => {
         const elapsed = Date.now() - loadingStartTimeRef.current;
         const progress = Math.min((elapsed / minDelay) * 100, 100);
@@ -93,7 +81,6 @@ export default function Terra25Page() {
 
         if (progress >= 100) {
           clearInterval(interval);
-          // Wait a bit at 100% then hide
           setTimeout(() => {
             setShowLoading(false);
           }, 500);
@@ -117,14 +104,11 @@ export default function Terra25Page() {
 
   const handleSatelliteClick = async (position) => {
     await clickSound.play();
-
-    // Store satellite position and trigger zoom
     setSatellitePosition(position);
     setShouldZoomToSatellite(true);
   };
 
   const handleZoomComplete = () => {
-    // Fade out canvas after zoom completes
     if (canvasContainerRef.current) {
       gsap.to(canvasContainerRef.current, {
         opacity: 0,
@@ -144,24 +128,19 @@ export default function Terra25Page() {
 
   return (
     <div className="font-custom3 w-screen h-screen bg-black relative overflow-hidden">
-
-      
       <button
         ref={backButtonRef}
         onClick={handleBackClick}
         className="text-white cursor-target fixed top-6 left-6 z-50 px-5 py-3 border-2 border-white/60 bg-black/70 backdrop-blur-md hover:border-white hover:bg-black/80 transition-all duration-300 shadow-lg group flex items-center gap-3"
-
-        // className="text-white ml-[1.5rem] cursor-target fixed top-6 left-6 z-50 px-3 py-1 border-2 border-white/60 bg-black/70 backdrop-blur-md hover:border-white hover:bg-black/80 transition-all duration-300 shadow-lg group flex items-center gap-3"
-      ><IoArrowBack/>Back</button>
-
+      >
+        <IoArrowBack/>Back
+      </button>
 
       {/* Navigation Header */}
       {!showLoading && <NavigationHeader teamName="DOMinators" />}
 
-
       {/* 3D Scene */}
       <div ref={canvasContainerRef} className="w-full h-full" style={{ transformOrigin: 'center center' }}>
-
         <Canvas camera={{ position: [0, 3, 12], fov: 50 }} shadows>
           <ambientLight intensity={0.5} />
           <directionalLight
@@ -183,7 +162,6 @@ export default function Terra25Page() {
             />
             <Environment files="/Backgrounds/space2.exr" background resolution={512} />
 
-            {/* Camera zoom controller */}
             <CameraZoomController
               satellitePosition={satellitePosition}
               shouldZoom={shouldZoomToSatellite}
@@ -213,8 +191,6 @@ export default function Terra25Page() {
         />
       )}
 
-
-
       {/* UI Elements - hide during loading */}
       {!showLoading && (
         <>
@@ -231,11 +207,20 @@ export default function Terra25Page() {
             setShowOrbitPath={setShowOrbitPath}
           />
 
-          <AstronautButton
-            currentAnimation={currentAnimation}
-            setCurrentAnimation={setCurrentAnimation}
-            onClick={handleChatToggle}
-          />
+          {/* Audio Player and Astronaut Button Container */}
+          <div className="fixed bottom-4 right-2 flex items-end gap-4 z-40">
+            {/* Audio Player Button */}
+            <AudioPlayerButton audioSrc="/music/LandingPage.mp3" />
+            
+            {/* Astronaut Button */}
+           <div className="fixed right-10">
+             <AstronautButton
+              currentAnimation={currentAnimation}
+              setCurrentAnimation={setCurrentAnimation}
+              onClick={handleChatToggle}
+            />
+           </div>
+          </div>
 
           <ChatbotInterface
             isOpen={isChatOpen}

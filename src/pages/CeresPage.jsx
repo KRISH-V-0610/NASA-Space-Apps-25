@@ -1,19 +1,44 @@
-// pages/CeresPage.jsx
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { IoArrowBack } from "react-icons/io5";
-import { useSoundEffect } from "../hooks/useSoundEffect";
+import { IoArrowBack, IoSunny, IoCloud, IoStatsChart, IoAnalytics } from "react-icons/io5";
 
 export default function CeresPage() {
   const navigate = useNavigate();
-  const clickSound = useSoundEffect("/sounds/mouse-click.mp3", { volume: 0.5 });
   const contentRef = useRef(null);
   const backButtonRef = useRef(null);
+  const [activeSection, setActiveSection] = useState("overview");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // CERES-specific slideshow images
+  const slideshowImages = [
+    "/TERRA-DETAILS/CERES/ceres_earth_energy.jpg",
+    "/TERRA-DETAILS/CERES/ceres_cloud_effects.jpg", 
+    "/TERRA-DETAILS/CERES/ceres_radiation_measurements.jpg"
+  ];
+
+  const sections = [
+    { id: "overview", label: "Overview", icon: null },
+    { id: "technology", label: "Technology", icon: IoSunny },
+    { id: "radiation", label: "Radiation Budget", icon: IoStatsChart },
+    { id: "clouds", label: "Cloud Studies", icon: IoCloud },
+    { id: "climate", label: "Climate Impact", icon: IoAnalytics },
+  ];
+
+  // Image slideshow effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        (prevIndex + 1) % slideshowImages.length
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    
+
     tl.fromTo(
       backButtonRef.current,
       { x: -50, opacity: 0 },
@@ -26,114 +51,277 @@ export default function CeresPage() {
     );
   }, []);
 
-  const handleBackClick = async () => {
-    await clickSound.play();
+  const handleBackClick = () => {
     navigate("/terra-details");
   };
 
-  return (
-    <div className="font-custom3 min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white">
-      {/* Back Button */}
-      <button
-        ref={backButtonRef}
-        onClick={handleBackClick}
-        className="cursor-target fixed top-6 left-6 z-50 px-5 py-3 border-2 border-white/60 bg-black/70 backdrop-blur-md hover:border-white hover:bg-black/80 transition-all duration-300 shadow-lg group flex items-center gap-3"
-      >
-        <IoArrowBack className="text-white text-xl group-hover:scale-110 transition-transform duration-300" />
-        <span className="font-custom3 text-white text-sm tracking-wider font-semibold">
-          Back
-        </span>
-        
-        <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/70 group-hover:w-3 group-hover:h-3 transition-all duration-300" />
-        <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white/70 group-hover:w-3 group-hover:h-3 transition-all duration-300" />
-      </button>
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
-      {/* Content */}
-      <div ref={contentRef} className="max-w-4xl mx-auto px-8 py-24">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-bold mb-4">CERES</h1>
-          <p className="text-xl text-white/70">Clouds and the Earth's Radiant Energy System</p>
-          <div className="w-32 h-1 bg-orange-400 mt-4"></div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white flex">
+      {/* Side Navigation */}
+      <nav className="fixed left-0 h-full w-64 bg-zinc-900/60 backdrop-blur-xl border-r border-white/50 p-6 overflow-y-auto z-50">
+        <div>
+          <button
+            ref={backButtonRef}
+            onClick={handleBackClick}
+            className="fixed top-6 left-6 z-50 px-5 py-3 border-2 border-white/40 bg-zinc-900/90 backdrop-blur-md hover:border-white hover:bg-zinc-800 transition-all duration-300 shadow-lg group flex items-center gap-3"
+          >
+            <IoArrowBack className="text-white text-xl group-hover:scale-110 transition-transform duration-300" />
+            <span className="text-white text-sm tracking-wider font-semibold">Back</span>
+
+            <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover:w-3 group-hover:h-3 group-hover:border-white transition-all duration-300" />
+            <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover:w-3 group-hover:h-3 group-hover:border-white transition-all duration-300" />
+          </button>
         </div>
 
-        {/* Overview */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-orange-400">Overview</h2>
-          <p className="text-white/80 leading-relaxed mb-4">
-            CERES measures both solar-reflected and Earth-emitted radiation from the top of the atmosphere to the 
-            Earth's surface. Understanding these energy flows is critical for climate research and weather prediction.
-          </p>
-          <p className="text-white/80 leading-relaxed">
-            The instrument consists of two identical scanners that measure shortwave (reflected sunlight) and longwave 
-            (emitted thermal) radiation, providing comprehensive data on Earth's radiation budget.
-          </p>
-        </section>
+        <div className="space-y-2 mt-24">
+          {sections.map((section) => {
+            const Icon = section.icon;
+            return (
+              <button
+                key={section.id}
+                onClick={() => scrollToSection(section.id)}
+                className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 ${activeSection === section.id
+                    ? 'bg-white/10 text-white border border-white/30'
+                    : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'
+                  }`}
+              >
+                {Icon && <Icon className="text-lg" />}
+                <span className="text-sm font-medium">{section.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
 
-        {/* Technical Specifications */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-orange-400">Technical Specifications</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border border-white/20 bg-white/5 p-6">
-              <h3 className="font-semibold text-lg mb-2">Scanners</h3>
-              <p className="text-white/70">2 identical scanning radiometers</p>
-            </div>
-            <div className="border border-white/20 bg-white/5 p-6">
-              <h3 className="font-semibold text-lg mb-2">Spectral Channels</h3>
-              <p className="text-white/70">Shortwave, Longwave, Total</p>
-            </div>
-            <div className="border border-white/20 bg-white/5 p-6">
-              <h3 className="font-semibold text-lg mb-2">Spatial Resolution</h3>
-              <p className="text-white/70">20 km at nadir</p>
-            </div>
-            <div className="border border-white/20 bg-white/5 p-6">
-              <h3 className="font-semibold text-lg mb-2">Scanning</h3>
-              <p className="text-white/70">Cross-track and biaxial</p>
-            </div>
+      {/* Main Content */}
+      <div ref={contentRef} className="ml-64 flex-1">
+        {/* Hero Section with Slideshow Background */}
+        <section id="overview" className="relative h-screen flex items-center justify-start px-12">
+          {/* Slideshow Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            {slideshowImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+              >
+                <img
+                  src={image}
+                  alt={`CERES Background ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-zinc-900"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+          </div>
+
+          {/* Title Content */}
+          <div className="relative z-10 max-w-4xl">
+            <h1 className="text-8xl font-bold mb-6 text-white drop-shadow-2xl">
+              CERES
+            </h1>
+            <p className="text-3xl text-white/90 mb-8 drop-shadow-lg">
+              Clouds and the Earth's Radiant Energy System
+            </p>
+            <div className="h-1 w-32 bg-orange-400 mb-8 shadow-lg"></div>
+
+            <p className="text-xl text-white/90 leading-relaxed max-w-2xl drop-shadow-md">
+              CERES instruments provide critical measurements of Earth's energy balance, tracking how much solar energy 
+              our planet receives, how much is reflected back to space, and how much thermal energy Earth emits. 
+              This data is fundamental to understanding climate change and improving climate prediction models :cite[1]:cite[6].
+            </p>
+          </div>
+
+          {/* Slideshow Indicators */}
+          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
+            {slideshowImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${index === currentImageIndex
+                    ? 'w-12 bg-orange-400'
+                    : 'w-2 bg-white/40 hover:bg-white/60'
+                  }`}
+              />
+            ))}
           </div>
         </section>
 
-        {/* Key Applications */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-orange-400">Key Applications</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="text-orange-400 mt-1">•</span>
-              <span className="text-white/80">Measuring Earth's radiation budget and energy balance</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-400 mt-1">•</span>
-              <span className="text-white/80">Cloud radiative forcing and feedback studies</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-400 mt-1">•</span>
-              <span className="text-white/80">Climate model validation and improvement</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-400 mt-1">•</span>
-              <span className="text-white/80">Solar radiation monitoring at Earth's surface</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-400 mt-1">•</span>
-              <span className="text-white/80">Aerosol and cloud property retrievals</span>
-            </li>
-          </ul>
-        </section>
+        {/* Content Sections */}
+        <div className="px-12 py-24 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900">
+          {/* Technology Section */}
+          <section id="technology" className="mb-20">
+            <div className="flex items-center gap-3 mb-6">
+              <IoSunny className="text-3xl text-orange-400" />
+              <h2 className="text-4xl font-bold text-white">Advanced Radiometer Technology</h2>
+            </div>
 
-        {/* Scientific Impact */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-orange-400">Scientific Impact</h2>
-          <p className="text-white/80 leading-relaxed mb-4">
-            CERES data is fundamental to understanding climate change. By measuring the balance between incoming 
-            solar radiation and outgoing thermal radiation, scientists can quantify Earth's energy imbalance and 
-            track how it changes over time.
-          </p>
-          <p className="text-white/80 leading-relaxed">
-            The instrument's precise measurements have revealed how clouds affect climate, showing that they both 
-            cool Earth by reflecting sunlight and warm it by trapping heat. This dual role makes clouds one of the 
-            most important yet uncertain factors in climate projections.
-          </p>
-        </section>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
+                <img
+                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_instrument_diagram.jpg"
+                  alt="CERES Instrument Design"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
+                <img
+                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_calibration_system.jpg"
+                  alt="CERES Calibration System"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
+              <p className="text-white/90 leading-relaxed mb-4">
+                Each CERES instrument is a narrow field-of-view scanning radiometer that measures broadband radiances 
+                in three spectral channels: shortwave (0.3-5 μm) for reflected sunlight, total (0.3-200 μm) for entire 
+                outgoing spectrum, and window (8-12 μm) for thermal radiation. The instruments achieve nadir footprint 
+                sizes of 20 km on Terra and Aqua platforms, enabling high spatial resolution for detailed climate studies :cite[1].
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div className="flex items-start gap-3 bg-zinc-900/60 p-4 rounded-lg border border-white/5">
+                  <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">Scanning Modes</h4>
+                    <p className="text-white/70 text-sm">Three operational modes: cross-track for global coverage, rotating azimuth for angular models, and programmable for instrument intercomparison :cite[1]</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 bg-zinc-900/60 p-4 rounded-lg border border-white/5">
+                  <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">Calibration Systems</h4>
+                    <p className="text-white/70 text-sm">Comprehensive onboard calibration including solar diffuser, tungsten lamp system, blackbodies, and space views for maximum accuracy :cite[1]</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Radiation Budget Section */}
+          <section id="radiation" className="mb-20">
+            <div className="flex items-center gap-3 mb-6">
+              <IoStatsChart className="text-3xl text-orange-400" />
+              <h2 className="text-4xl font-bold text-white">Earth's Radiation Budget Monitoring</h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 mb-6">
+              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
+                <img
+                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_energy_balance.jpg"
+                  alt="Earth's Energy Balance"
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
+              <p className="text-white/90 leading-relaxed mb-4">
+                CERES provides continuous monitoring of Earth's Energy Imbalance (EEI), the crucial difference between 
+                incoming solar radiation and outgoing thermal radiation. This measurement is fundamental to understanding 
+                climate change, as positive energy imbalance means Earth is accumulating heat. CERES data shows excellent 
+                agreement with ocean heat uptake measurements from the Argo float network, validating climate models and 
+                providing confidence in global warming projections :cite[6].
+              </p>
+              <div className="flex items-start gap-3 bg-zinc-900/60 p-4 rounded-lg border border-white/5">
+                <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Climate Accuracy</h4>
+                  <p className="text-white/70 text-sm">CERES has doubled the accuracy of radiative flux estimates at top of atmosphere and Earth's surface, providing the first long-term global estimates of radiative fluxes within Earth's atmosphere :cite[6]</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Cloud Studies Section */}
+          <section id="clouds" className="mb-20">
+            <div className="flex items-center gap-3 mb-6">
+              <IoCloud className="text-3xl text-orange-400" />
+              <h2 className="text-4xl font-bold text-white">Cloud-Radiation Interactions</h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 mb-6">
+              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
+                <img
+                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_cloud_effects.jpg"
+                  alt="Cloud Radiation Effects"
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
+              <p className="text-white/90 leading-relaxed mb-4">
+                CERES works in conjunction with imagers like MODIS to determine how clouds affect Earth's radiation balance. 
+                Clouds both cool Earth by reflecting sunlight (albedo effect) and warm it by trapping outgoing thermal 
+                radiation (greenhouse effect). CERES measurements have revealed that the net effect of clouds currently 
+                cools Earth, but climate change could alter this balance, making cloud feedback one of the largest 
+                uncertainties in climate projections :cite[1]:cite[6].
+              </p>
+              <div className="flex items-start gap-3 bg-zinc-900/60 p-4 rounded-lg border border-white/5">
+                <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Data Fusion Innovation</h4>
+                  <p className="text-white/70 text-sm">CERES integrates data from multiple instruments including MODIS, VIIRS, and geostationary imagers, with over 90% of CERES data products involving two or more instruments :cite[1]</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Climate Impact Section */}
+          <section id="climate" className="mb-20">
+            <div className="flex items-center gap-3 mb-6">
+              <IoAnalytics className="text-3xl text-orange-400" />
+              <h2 className="text-4xl font-bold text-white">Climate Change Research and Policy Impact</h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 mb-6">
+              <div className="relative group overflow-hidden rounded-xl border border-white/10 bg-zinc-800/40">
+                <img
+                  src="https://ceres.larc.nasa.gov/wp-content/uploads/2021/12/ceres_climate_record.jpg"
+                  alt="Long-term Climate Record"
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-800/40 border border-white/10 rounded-xl p-6">
+              <p className="text-white/90 leading-relaxed mb-4">
+                With seven instruments launched on five satellites since 1997, CERES provides the most comprehensive 
+                record of Earth's radiation budget ever assembled. This long-term dataset spans multiple solar cycles, 
+                El Niño events, and major volcanic eruptions, enabling scientists to separate natural climate variability 
+                from human-caused climate change. The continuous data record from TRMM, Terra, Aqua, and subsequent 
+                missions ensures climate modelers have consistent, accurate measurements for validating and improving 
+                climate projections :cite[1]:cite[6].
+              </p>
+              <div className="flex items-start gap-3 bg-zinc-900/60 p-4 rounded-lg border border-white/5">
+                <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Future Continuity</h4>
+                  <p className="text-white/70 text-sm">The Libera instrument selected for launch on JPSS-3 will continue CERES measurements with updated capabilities, ensuring uninterrupted climate data records through 2027 and beyond :cite[6]</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
