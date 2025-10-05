@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { IoArrowBack, IoFlame, IoLeaf, IoCloudOutline, IoWater } from "react-icons/io5";
+import AudioPlayerButton from "../components/AudioPlayerButton";
 
 export default function ModisPage() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function ModisPage() {
       setCurrentImageIndex((prevIndex) =>
         (prevIndex + 1) % slideshowImages.length
       );
-    }, 5000); // Change image every 5 seconds
+    }, 3000); // Change image every 5 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -301,6 +302,9 @@ export default function ModisPage() {
             </div>
           </section>
         </div>
+      </div>
+        <div className="fixed bottom-6 right-6 z-40">
+        <AudioPlayerButton audioSrc="/music/MODIS.mp3" />
       </div>
     </div>
   );

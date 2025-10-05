@@ -18,7 +18,8 @@ export default function NavigationHeader({ teamName = "TEAM TERRA" }) {
   const navItems = [
     { label: "About", path: "/terra-details" },
     { label: "Data Insights", path: "/terra25/data-insights" },
-    { label: "Explore", path: "/terra25/explore" }
+    { label: "Events", path: "/terra25/explore" },
+    { label: "Analysis Catalog", path: "/terra25/explore" }
   ];
 
   // Entrance animation

@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { IoArrowBack, IoEye, IoCloud, IoLeaf, IoAnalytics } from "react-icons/io5";
+import AudioPlayerButton from "../components/AudioPlayerButton";
+
 
 export default function MisrPage() {
   const navigate = useNavigate();
@@ -305,6 +307,9 @@ export default function MisrPage() {
           </section>
         </div>
       </div>
+        <div className="fixed bottom-6 right-6 z-40">
+                    <AudioPlayerButton audioSrc="/music/MISR.mp3" />
+        </div>
     </div>
   );
 }

@@ -102,10 +102,10 @@ useEffect(() => {
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
             <div className="flex items-center gap-3 justify-center">
-              <div className="relative text-white font-bold">
-             <GiAstronautHelmet/>
+              <div className="relative text-white font-bold text-xl">
+             <GiAstronautHelmet className="-rotate-90"/>
               </div>
-              <h3 className="text-white font-custom3 ml-[-6px] mt-1 font-semibold text-lg tracking-wide">TerraNaut</h3>
+              <h3 className="text-white font-custom3 ml-[-8px] mt-1 font-semibold text-lg tracking-wide">TerraNaut</h3>
             </div>
             <button
               onClick={onClose}
